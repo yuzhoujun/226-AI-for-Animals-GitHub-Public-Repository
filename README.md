@@ -40,7 +40,7 @@
 | Transformer 视频建模 | TimeSformer、Swin Transformer、MViT、UniFormer |
 | 时序特征建模 | Temporal Pyramid Network |
 | 状态空间模型 | VideoMamba |
-| 视觉语言与动作识别 | CLIP、ActionCLIP |
+| 视觉语言与动作识别 | CLIP、ActionCLIP、BIKE |
 
 ### 综述
 
