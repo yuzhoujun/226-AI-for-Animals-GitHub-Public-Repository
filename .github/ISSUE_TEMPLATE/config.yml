@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 我要添加论文 / 综述 / 数据集
+    url: https://github.com/yuzhoujun/226-GitHub-Public-Repository/blob/main/CONTRIBUTING.md
+    about: 添加内容不需要开 Issue，按贡献指南直接提 PR 即可，网页上就能改。

@@ -1,0 +1,9 @@
+# 统一换行符为 LF。
+# 组里 Windows / macOS 混用，不统一的话每次提交都会因为 CRLF 产生大段无意义 diff。
+* text=auto eol=lf
+
+# 明确按二进制处理，避免 git 尝试转换
+*.pdf binary
+*.zip binary
+*.png binary
+*.jpg binary

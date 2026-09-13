@@ -1,0 +1,9 @@
+{
+  // markdownlint-cli2 专属配置：只管「扫哪些文件」，规则一律不写在这里。
+  //
+  // 规则统一放在 .markdownlint.json —— 因为 VSCode 的 markdownlint 插件
+  // 不认识这个 cli2 配置文件，但认识 .markdownlint.json。
+  // 规则只写一份，本地编辑器和 CI 才不会打架。
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules/**", ".git/**"]
+}

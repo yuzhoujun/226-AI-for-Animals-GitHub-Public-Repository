@@ -1,1 +1,37 @@
+# 本仓库只存链接，不存文件本体。
+# 下面这些规则是硬性拦截：即使误操作 git add，也提交不上去。
+
+# 论文全文（版权风险）
 *.pdf
+*.PDF
+
+# 数据集压缩包（体积 + 版权）
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# 图片与视频（不要往文献索引仓库里塞素材）
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.avi
+*.mov
+
+# Office 临时文件
+~$*
+*.tmp
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 本地跑 markdownlint / lychee 时产生的依赖
+node_modules/

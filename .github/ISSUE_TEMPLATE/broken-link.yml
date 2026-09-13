@@ -1,0 +1,36 @@
+name: 报告失效链接
+description: 某个论文 / 数据集链接打不开了
+title: "[失效链接] "
+labels: ["broken-link"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        链接检查机器人每周一自动扫描一次，但人工报告更快。也可以直接提 PR 把链接改掉。
+
+  - type: input
+    id: location
+    attributes:
+      label: 在哪个文件里
+      description: 仓库内的路径
+      placeholder: directions/03-remote-sensing/papers/2025.md
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: 失效的链接
+      placeholder: https://arxiv.org/abs/xxxx.xxxxx
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: 具体情况
+      description: 报什么错？如果你已经找到了可用的替换链接，一并发在这里。
+      placeholder: |
+        404。已找到正式发表版本：https://doi.org/10.1109/XXXX.2025.1234567
+    validations:
+      required: false

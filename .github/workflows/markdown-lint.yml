@@ -1,0 +1,20 @@
+name: Markdown 格式检查
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: "**/*.md"
+
+      # 格式问题大多能自动修。本地跑 `npx markdownlint-cli2 --fix "**/*.md"` 即可。

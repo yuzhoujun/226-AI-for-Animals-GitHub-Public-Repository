@@ -1,0 +1,43 @@
+name: 申请新增研究方向
+description: 提议在 directions/ 下新增一个方向
+title: "[新方向] "
+labels: ["new-direction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        新增方向会长期影响目录结构，所以先在这里讨论，确认后再建目录提 PR（步骤见贡献指南）。
+        目录编号取下一个可用值，**不要插空号或重排已有编号**。
+
+  - type: input
+    id: name
+    attributes:
+      label: 方向名称
+      description: 中文名 + 建议的英文目录名（英文小写 + 连字符）
+      placeholder: 视频生成 / 05-video-generation
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 研究范围
+      description: 这个方向包含哪些子问题？关键词有哪些？
+    validations:
+      required: true
+
+  - type: textarea
+    id: difference
+    attributes:
+      label: 和现有方向的区别
+      description: 为什么不归到已有的四个方向里？这一栏是审核的主要依据。
+    validations:
+      required: true
+
+  - type: textarea
+    id: scale
+    attributes:
+      label: 预计规模
+      description: 大概几个人在做？预计会有多少篇文献？有没有已确定要收录的内容？
+    validations:
+      required: true

@@ -1,0 +1,47 @@
+name: 链接检查
+
+# 本仓库里几乎全是外链（arXiv、DOI、数据集官网），失效是常态。
+# PR 上只提示不拦截；每周一自动扫一遍，有失效就开 Issue。
+
+on:
+  pull_request:
+  schedule:
+    # 每周一 02:17 UTC（北京时间 10:17）。避开整点，减少和别的任务撞车。
+    - cron: "17 2 * * 1"
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 用 lychee 扫描 Markdown 中的链接
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # fail: false —— arXiv 偶尔限流会误报，不让它拦住 PR，
+          # 真正的失效由下面的定时任务开 Issue 提醒。
+          fail: false
+          args: >-
+            --no-progress
+            --max-concurrency 4
+            --timeout 30
+            --max-retries 3
+            --retry-wait-time 5
+            --accept 200,206,429
+            --exclude '^https?://localhost'
+            './**/*.md'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 定时扫描发现失效链接则开 Issue
+        if: github.event_name == 'schedule' && steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 链接检查发现失效链接
+          content-filepath: ./lychee/out.md
+          labels: broken-link
