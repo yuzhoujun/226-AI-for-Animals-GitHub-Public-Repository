@@ -101,15 +101,44 @@ function taskTitle(dir, task) {
 const problems = [];
 const fail = (msg) => problems.push(msg);
 
+/**
+ * 下拉框的值长这样：「01-ai-for-animals（AI+动物）」。
+ * 只要开头的目录名——用 \S+ 会把中文括号一起吞掉（中文不算空白），
+ * 拼出来的路径就成了「01-ai-for-animals（AI+动物）/surveys」。
+ */
+const parseDirection = (raw) => (raw.match(/^[0-9a-z-]+/i) ?? [""])[0];
+
+/**
+ * 归一化链接，用来判重，顺便把 arXiv 的 PDF 直链掰回摘要页。
+ *
+ * 判重不能只比字符串：同一条论文，一个人贴 /abs/2408.12934、另一个人贴
+ * /pdf/2408.12934，字符串不同但说的是同一篇，会被当成两条收进来。
+ * 所以统一归一到「arxiv:<id>」这种键上。
+ */
+function linkKey(url) {
+  const ax = url.match(/arxiv\.org\/(?:abs|pdf)\/(\d{4}\.\d{4,5})(v\d+)?/i);
+  if (ax) return `arxiv:${ax[1]}`;
+  return url
+    .replace(/^https?:\/\/(www\.)?/i, "")
+    .replace(/[#?].*$/, "")
+    .replace(/\/+$/, "")
+    .toLowerCase();
+}
+
 function checkUrl(url, fieldName) {
   if (!url) return "";
   if (!/^https?:\/\//i.test(url)) {
     fail(`**${fieldName}** 得是一个完整网址（要带 https://），现在是「${url}」。`);
     return "";
   }
+  // arXiv 的 PDF 直链直接掰成摘要页——这是贡献指南要求的写法，
+  // 而且不改的话判重也会漏掉（见 linkKey）。
+  const axPdf = url.match(/^(https?:\/\/arxiv\.org)\/pdf\/(.+?)(\.pdf)?$/i);
+  if (axPdf) return `${axPdf[1]}/abs/${axPdf[2]}`;
+
   if (/\.pdf$/i.test(url)) {
     fail(
-      `**${fieldName}** 指向了 PDF 直链。请换成 arXiv 摘要页（把 \`/pdf/\` 改成 \`/abs/\`）或 DOI 页面——\n` +
+      `**${fieldName}** 指向了 PDF 直链。请换成摘要页或 DOI 页面——\n` +
         `PDF 链接更容易失效，贡献指南里也明确要求不要贴。`
     );
     return "";
@@ -170,8 +199,7 @@ if (type === "paper") {
     desc: checkTableCell(pick(fields, "一句话贡献"), "一句话贡献", 120),
   };
 } else if (type === "survey") {
-  const raw = pick(fields, "放在哪个方向下");
-  const dir = (raw.match(/^\S+/) ?? [""])[0];
+  const dir = parseDirection(pick(fields, "放在哪个方向下"));
   if (!dir || !existsSync(join(ROOT, "directions", dir))) {
     fail("**放在哪个方向下** 没选对，请从下拉框里选一项。");
   }
@@ -187,8 +215,7 @@ if (type === "paper") {
     desc: checkTableCell(pick(fields, "覆盖范围与主要结论"), "覆盖范围与主要结论", 120),
   };
 } else {
-  const raw = pick(fields, "放在哪个方向下");
-  const dir = (raw.match(/^\S+/) ?? [""])[0];
+  const dir = parseDirection(pick(fields, "放在哪个方向下"));
   if (!dir || !existsSync(join(ROOT, "directions", dir))) {
     fail("**放在哪个方向下** 没选对，请从下拉框里选一项。");
   }
@@ -215,22 +242,29 @@ if (entry && !/^\d{4}$/.test(entry.year)) {
   if (y < 1990 || y > 2100) fail(`**年份** ${y} 看着不对，请确认填的是正式发表的年份。`);
 }
 
-// 重复收录：同一条链接已经在仓库里就不再加
+// 重复收录：同一条链接已经在仓库里就不再加。
+// 按归一化后的键比较而不是原文，否则 /abs/ 和 /pdf/ 会被当成两条。
 if (entry && entry.link) {
+  const key = linkKey(entry.link);
   const seen = [];
   const walk = (abs) => {
     for (const e of readdirSync(abs, { withFileTypes: true })) {
       const p = join(abs, e.name);
-      if (e.isDirectory()) walk(p);
-      else if (e.name.endsWith(".md") && readFileSync(p, "utf8").includes(entry.link)) {
-        seen.push(p.replace(ROOT + "\\", "").replace(ROOT + "/", "").replace(/\\/g, "/"));
+      if (e.isDirectory()) {
+        walk(p);
+        continue;
+      }
+      if (!e.name.endsWith(".md")) continue;
+      const urls = readFileSync(p, "utf8").match(/https?:\/\/[^\s)|>]+/g) ?? [];
+      if (urls.some((u) => linkKey(u) === key)) {
+        seen.push(p.replace(ROOT, "").replace(/^[\\/]/, "").replace(/\\/g, "/"));
       }
     }
   };
   walk(join(ROOT, "directions"));
   if (seen.length) {
     fail(
-      `这条链接**已经收录过了**，在：\n\n` +
+      `这条**已经收录过了**，在：\n\n` +
         seen.map((s) => `- \`${s}\``).join("\n") +
         `\n\n如果是想补充信息，请直接在 GitHub 上编辑那个文件（或告诉维护者），不用另开 Issue。`
     );

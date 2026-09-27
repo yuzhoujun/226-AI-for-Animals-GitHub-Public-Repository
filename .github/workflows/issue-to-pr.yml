@@ -2,13 +2,16 @@ name: Issue 转 PR
 
 # 让不会 git 的同学也能贡献：填 Issue 表单 → 机器人把条目写进仓库 → 开一个 PR 等维护者审。
 #
-# 只在 opened / reopened 时跑。**故意不监听 edited**——编辑 Issue 会重跑，
-# 而重跑时上一次的改动还没合进 main，会重复追加一行。要改内容就重新编辑后
-# 关掉再 reopen，或者直接在 PR 上改。
+# 监听 edited 是有意的：脚本校验不通过时会在 Issue 下回帖让投稿人改内容，
+# 改完自然期望自动重跑，不重跑的话那条回帖就是在骗人。
+#
+# 重跑不会重复追加——每次都是全新 checkout main，改动还没合进去，
+# 且 create-pull-request 会复用同一个分支名（issue-<编号>）覆盖式更新 PR。
+# 万一 PR 已经合了，脚本的判重会拦住并回帖说明「已经收录过了」。
 
 on:
   issues:
-    types: [opened, reopened]
+    types: [opened, reopened, edited]
 
 permissions:
   contents: write

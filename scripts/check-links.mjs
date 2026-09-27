@@ -10,7 +10,9 @@ import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, dirname, resolve, relative } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
-const SKIP = new Set(["node_modules", ".git", ".claude"]);
+// .site-src 是 build-site.mjs 生成的副本，site 是 mkdocs 的产物。
+// 扫它们等于把同一批链接查两遍（而且那边已经改写过），纯属浪费，也会让计数虚高。
+const SKIP = new Set(["node_modules", ".git", ".claude", ".site-src", "site"]);
 
 function walk(dir, out = []) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
