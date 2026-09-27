@@ -268,6 +268,7 @@ npx markdownlint-cli2 --fix "**/*.md"  # 自动修复大部分格式问题
 
 node scripts/gen-index.mjs             # 重新生成 README 里的统计块
 node scripts/check-links.mjs           # 检查仓库内相对链接
+node scripts/check-xref.mjs            # 检查正文里对具体条目的引用
 ```
 
 规则配置在 `.markdownlint.json`，**VSCode 的 markdownlint 插件和 CI 读的是同一份**，所以本地报什么 CI 就报什么。
@@ -288,6 +289,28 @@ CI 会校验统计块是否最新（`--check` 模式），过期会直接失败�
 
 被 `<!-- AUTO:XXX:BEGIN -->` 和 `<!-- AUTO:XXX:END -->` 包住的部分由脚本接管，
 标记之外的叙述文字、阅读顺序、说明都是手写的，脚本不会动。
+
+### 正文里怎么引用某一条
+
+统计块不会错（脚本生成的），会错的是它旁边手写的那句话。所以引用具体某一条时：
+
+**链接文字要用标题里连续的一段**（通常是开头），指向那一条所在的年份文件：
+
+```markdown
+✅ [OpenAnimals](2025.md)          ← “OpenAnimals” 是标题开头，脚本能在 2025.md 里找到它
+✅ [Cross-Species Animal Re-Identification（2026）](2026.md)
+❌ [Cross-Species Re-ID](2026.md)  ← 自己拼的缩写，对不上全名，脚本没法核对
+```
+
+**为什么**：哪天这条按发表年换了文件，`scripts/check-xref.mjs` 会去同目录别的
+年份文件里找它，找到就报错告诉你挪去哪了。缩写对不上全名，脚本认不出来，
+就只能给你一条「无法核对」的警告——等于没保护。
+
+**表格里空间不够**（比如「代表」列），就写纯文本简称、不加链接，读者从下方的
+年份索引点进去即可。
+
+**只指文件、不指某一条**时可以随意：`[datasets/2023](datasets/2023.md)`、
+`[3 篇](2025.md)` 这类脚本会跳过，它没法从文字判断你指的是哪条。
 
 ### 常见问题
 

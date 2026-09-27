@@ -72,7 +72,7 @@
 3. 三个任务各挑一篇入门：
    - 行为识别 → [AnimalMotionCLIP（2025）](papers/behavior/2025.md)，看视觉-语言这条路怎么绕开行为标注。
    - 姿态估计 → [AniMer（2025）](papers/pose-estimation/2025.md)，看三维参数化模型这条线。
-   - 个体重识别 → [OpenAnimals（2024）](papers/re-identification/2024.md)，看「为什么行人 Re-ID 那套不够用」。
+   - 个体重识别 → [OpenAnimals（2025）](papers/re-identification/2025.md)，看「为什么行人 Re-ID 那套不够用」。
 4. 方法层面去 [02-foundations](../02-foundations/) 看：本方向的模型骨干基本都来自那里，
    按 3D CNN → Transformer → 状态空间模型 → 视觉语言模型这条脉络读。
 
