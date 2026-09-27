@@ -16,13 +16,15 @@
 
 ## 年份索引
 
-| 年份 | 论文 |
+<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+| 年份 | 文件 |
 | --- | --- |
-| 2017 | [Mask R-CNN](2017.md) |
-| 2020 | [DETR](2020.md) |
-| 2021 | [Deformable DETR](2021.md) |
-| 2023 | [DINO](2023.md) · [Co-DETR](2023.md) |
-| 2024 | [RT-DETR](2024.md) · [Grounding DINO](2024.md) |
+| 2024 | [2 篇](2024.md) — DETRs Beat YOLOs on Real-time Object Detection、Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection |
+| 2023 | [2 篇](2023.md) — DINO: DETR with Improved DeNoising Anchor Boxes for End-to-End Object Detection、DETRs with Collaborative Hybrid Assignments Training |
+| 2021 | [1 篇](2021.md) — Deformable DETR: Deformable Transformers for End-to-End Object Detection |
+| 2020 | [1 篇](2020.md) — End-to-End Object Detection with Transformers |
+| 2017 | [1 篇](2017.md) — Mask R-CNN |
+<!-- AUTO:YEARS:END -->
 
 ## 与本方向其他任务的关系
 

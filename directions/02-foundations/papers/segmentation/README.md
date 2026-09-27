@@ -16,13 +16,15 @@
 
 ## 年份索引
 
-| 年份 | 论文 |
+<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+| 年份 | 文件 |
 | --- | --- |
-| 2015 | [U-Net](2015.md) |
-| 2021 | [SegFormer](2021.md) |
-| 2022 | [Mask2Former](2022.md) |
-| 2023 | [SAM](2023.md) · [HQ-SAM](2023.md) |
-| 2024 | [SAM 2](2024.md) |
+| 2024 | [1 篇](2024.md) — SAM 2: Segment Anything in Images and Videos |
+| 2023 | [2 篇](2023.md) — Segment Anything、Segment Anything in High Quality |
+| 2022 | [1 篇](2022.md) — Masked-attention Mask Transformer for Universal Image Segmentation |
+| 2021 | [1 篇](2021.md) — SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers |
+| 2015 | [1 篇](2015.md) — U-Net: Convolutional Networks for Biomedical Image Segmentation |
+<!-- AUTO:YEARS:END -->
 
 ## 与本方向其他任务的关系
 

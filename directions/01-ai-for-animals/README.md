@@ -27,30 +27,32 @@
 
 ## 已收录内容
 
+<!-- AUTO:COLLECTION:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
 **论文**（16 篇）
 
 | 任务 | 年份 |
 | --- | --- |
-| [行为识别](papers/behavior/) | [2021](papers/behavior/2021.md) · [2024](papers/behavior/2024.md) · [2025](papers/behavior/2025.md) · [2026](papers/behavior/2026.md) |
+| [行为识别与理解](papers/behavior/) | [2021](papers/behavior/2021.md) · [2024](papers/behavior/2024.md) · [2025](papers/behavior/2025.md) · [2026](papers/behavior/2026.md) |
 | [姿态估计](papers/pose-estimation/) | [2019](papers/pose-estimation/2019.md) · [2023](papers/pose-estimation/2023.md) · [2025](papers/pose-estimation/2025.md) |
 | [个体重识别](papers/re-identification/) | [2020](papers/re-identification/2020.md) · [2024](papers/re-identification/2024.md) · [2026](papers/re-identification/2026.md) |
 
 **综述**（4 篇）
 
-| 年份 | 内容 |
+| 年份 | 条目 |
 | --- | --- |
-| 2024 | [2 篇](surveys/2024.md) — 多模态动物姿态估计综述、野外灵长类行为分析综述 |
-| 2025 | [2 篇](surveys/2025.md) — 动物行为分析深度学习综述、粗到细粒度动物动作识别综述 |
+| 2024 | [2 篇](surveys/2024.md) — Towards Multi-Modal Animal Pose Estimation: A Survey and In-Depth Analysis、Computer Vision for Primate Behavior Analysis in the Wild |
+| 2025 | [2 篇](surveys/2025.md) — Animal behavior analysis methods using deep learning: a survey、A Review on Coarse to Fine-Grained Animal Action Recognition |
 
 **数据集**（12 个）
 
-| 年份 | 内容 |
+| 年份 | 条目 |
 | --- | --- |
 | 2021 | [1 个](datasets/2021.md) — AP-10K |
 | 2022 | [2 个](datasets/2022.md) — Animal Kingdom、APT-36K |
 | 2023 | [5 个](datasets/2023.md) — LoTE-Animal、APTv2、Animal3D、ChimpACT、WildlifeDatasets |
 | 2024 | [3 个](datasets/2024.md) — PanAf20K、WildlifeReID-10k、Multispecies Animal Re-ID |
 | 2025 | [1 个](datasets/2025.md) — MammAlps |
+<!-- AUTO:COLLECTION:END -->
 
 > 📌 **本方向的一个显著特点：数据集论文占比很高。** 上面 12 个数据集里，至少有 5 个同时发表在
 > NeurIPS Datasets & Benchmarks（AP-10K、APT-36K）、NeurIPS（ChimpACT）、IJCV（PanAf20K）、CVPR（MammAlps）

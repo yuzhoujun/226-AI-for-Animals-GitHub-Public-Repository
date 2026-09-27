@@ -38,12 +38,14 @@
 
 ## 年份索引
 
-| 年份 | 论文 |
+<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+| 年份 | 文件 |
 | --- | --- |
-| 2021 | [Cattle identification and action recognition](2021.md) |
-| 2024 | [AlphaChimp](2024.md) |
-| 2025 | [Domain-Adaptive Pretraining](2025.md) · [AnimalMotionCLIP](2025.md) · [Primate Behavior Retrieval](2025.md) |
-| 2026 | [PriVi](2026.md) |
+| 2026 | [1 篇](2026.md) — PriVi: Towards A General-Purpose Video Model For Primate Behavior In The Wild |
+| 2025 | [3 篇](2025.md) — Domain-Adaptive Pretraining Improves Primate Behavior Recognition、AnimalMotionCLIP: Embedding motion in CLIP for Animal Behavior Analysis、Fine-Tuning Video-Text Contrastive Model for Primate Behavior Retrieval from Unlabeled Raw Videos |
+| 2024 | [1 篇](2024.md) — AlphaChimp: Tracking and Behavior Recognition of Chimpanzees |
+| 2021 | [1 篇](2021.md) — Video-based cattle identification and action recognition |
+<!-- AUTO:YEARS:END -->
 
 ## 相关任务
 

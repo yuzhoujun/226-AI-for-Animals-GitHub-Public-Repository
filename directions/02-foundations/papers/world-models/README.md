@@ -26,12 +26,14 @@
 
 ## 年份索引
 
-| 年份 | 论文 |
+<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+| 年份 | 文件 |
 | --- | --- |
-| 2018 | [World Models](2018.md) |
-| 2024 | [Genie](2024.md) |
-| 2025 | [DreamerV3](2025.md) · [V-JEPA 2](2025.md) |
-| 2026 | [V-JEPA 2.1](2026.md) |
+| 2026 | [1 篇](2026.md) — V-JEPA 2.1: Unlocking Dense Features in Video Self-Supervised Learning |
+| 2025 | [2 篇](2025.md) — Mastering Diverse Domains through World Models、V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning |
+| 2024 | [1 篇](2024.md) — Genie: Generative Interactive Environments |
+| 2018 | [1 篇](2018.md) — World Models |
+<!-- AUTO:YEARS:END -->
 
 ## 与本方向其他任务的关系
 

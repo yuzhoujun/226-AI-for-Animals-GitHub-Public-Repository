@@ -31,14 +31,23 @@
 
 ## 已收录内容
 
-| 任务 | 论文 | 综述 |
-| --- | --- | --- |
-| 动作与行为识别 | [2015](papers/action-recognition/2015.md) · [2019](papers/action-recognition/2019.md) · [2020](papers/action-recognition/2020.md) · [2021](papers/action-recognition/2021.md) · [2022](papers/action-recognition/2022.md) · [2024](papers/action-recognition/2024.md) | [2025](surveys/2025.md) |
-| 视觉-语言与多模态 | [2021](papers/vision-language/2021.md) · [2023](papers/vision-language/2023.md) | — |
-| 目标检测 | [2017](papers/object-detection/2017.md) · [2020](papers/object-detection/2020.md) · [2021](papers/object-detection/2021.md) · [2023](papers/object-detection/2023.md) · [2024](papers/object-detection/2024.md) | — |
-| 图像分割 | [2015](papers/segmentation/2015.md) · [2021](papers/segmentation/2021.md) · [2022](papers/segmentation/2022.md) · [2023](papers/segmentation/2023.md) · [2024](papers/segmentation/2024.md) | — |
-| 世界模型 | [2018](papers/world-models/2018.md) · [2024](papers/world-models/2024.md) · [2025](papers/world-models/2025.md) · [2026](papers/world-models/2026.md) | — |
-| 图像拼接 | — | — |
+<!-- AUTO:COLLECTION:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+**论文**（30 篇）
+
+| 任务 | 年份 |
+| --- | --- |
+| [动作与行为识别](papers/action-recognition/) | [2015](papers/action-recognition/2015.md) · [2019](papers/action-recognition/2019.md) · [2020](papers/action-recognition/2020.md) · [2021](papers/action-recognition/2021.md) · [2022](papers/action-recognition/2022.md) · [2024](papers/action-recognition/2024.md) |
+| [视觉-语言与多模态](papers/vision-language/) | [2021](papers/vision-language/2021.md) · [2023](papers/vision-language/2023.md) |
+| [目标检测](papers/object-detection/) | [2017](papers/object-detection/2017.md) · [2020](papers/object-detection/2020.md) · [2021](papers/object-detection/2021.md) · [2023](papers/object-detection/2023.md) · [2024](papers/object-detection/2024.md) |
+| [图像分割](papers/segmentation/) | [2015](papers/segmentation/2015.md) · [2021](papers/segmentation/2021.md) · [2022](papers/segmentation/2022.md) · [2023](papers/segmentation/2023.md) · [2024](papers/segmentation/2024.md) |
+| [世界模型](papers/world-models/) | [2018](papers/world-models/2018.md) · [2024](papers/world-models/2024.md) · [2025](papers/world-models/2025.md) · [2026](papers/world-models/2026.md) |
+
+**综述**（2 篇）
+
+| 年份 | 条目 |
+| --- | --- |
+| 2025 | [2 篇](surveys/2025.md) — About Time: Advances, Challenges, and Outlooks of Action Understanding、A Survey of Video Action Recognition Based on Deep Learning |
+<!-- AUTO:COLLECTION:END -->
 
 ## 建议阅读顺序
 

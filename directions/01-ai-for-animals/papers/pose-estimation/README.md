@@ -30,11 +30,13 @@
 
 ## 年份索引
 
-| 年份 | 论文 |
+<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+| 年份 | 文件 |
 | --- | --- |
-| 2019 | [Cross-Domain Adaptation](2019.md) |
-| 2023 | [CLAMP](2023.md) |
-| 2025 | [AniMer](2025.md) · [AniMer+](2025.md) · [DiffPose-Animal](2025.md) · [AP-CAP](2025.md) |
+| 2025 | [4 篇](2025.md) — AniMer: Animal Pose and Shape Estimation Using Family Aware Transformer、AniMer+: Unified Pose and Shape Estimation Across Mammalia and Aves via Family-Aware Transformer、DiffPose-Animal: A Language-Conditioned Diffusion Framework for Animal Pose Estimation、AP-CAP: Advancing High-Quality Data Synthesis for Animal Pose Estimation via a Controllable Image Synthesis Pipeline |
+| 2023 | [1 篇](2023.md) — CLAMP: Prompt-based Contrastive Learning for Connecting Language and Animal Pose |
+| 2019 | [1 篇](2019.md) — Cross-Domain Adaptation for Animal Pose Estimation |
+<!-- AUTO:YEARS:END -->
 
 ## 相关任务
 

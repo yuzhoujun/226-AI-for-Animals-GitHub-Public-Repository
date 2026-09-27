@@ -214,9 +214,29 @@ directions/05-video-generation/
 ```bash
 npx markdownlint-cli2 "**/*.md"        # 检查
 npx markdownlint-cli2 --fix "**/*.md"  # 自动修复大部分格式问题
+
+node scripts/gen-index.mjs             # 重新生成 README 里的统计块
+node scripts/check-links.mjs           # 检查仓库内相对链接
 ```
 
 规则配置在 `.markdownlint.json`，**VSCode 的 markdownlint 插件和 CI 读的是同一份**，所以本地报什么 CI 就报什么。
+
+### README 里的统计是自动生成的
+
+方向 README 的「已收录内容」、任务 README 的「年份索引」、根 README 的收录数量，
+**全部由 `scripts/gen-index.mjs` 扫描实际文件生成**，不要手改。
+
+加了新论文之后跑一次：
+
+```bash
+node scripts/gen-index.mjs
+```
+
+CI 会校验统计块是否最新（`--check` 模式），过期会直接失败并告诉你怎么修。
+所以你**不需要**手动去数某个方向收了多少篇——改了文件跑一下脚本就行。
+
+被 `<!-- AUTO:XXX:BEGIN -->` 和 `<!-- AUTO:XXX:END -->` 包住的部分由脚本接管，
+标记之外的叙述文字、阅读顺序、说明都是手写的，脚本不会动。
 
 ### 常见问题
 
