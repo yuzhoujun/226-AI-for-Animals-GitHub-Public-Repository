@@ -13,7 +13,7 @@ body:
     attributes:
       label: 在哪个文件里
       description: 仓库内的路径
-      placeholder: directions/03-remote-sensing/papers/2025.md
+      placeholder: directions/01-ai-for-animals/papers/behavior/2025.md
     validations:
       required: true
 
