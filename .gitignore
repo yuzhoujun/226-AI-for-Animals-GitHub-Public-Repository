@@ -35,3 +35,8 @@ desktop.ini
 
 # 本地跑 markdownlint / lychee 时产生的依赖
 node_modules/
+
+# 阅读站点的构建产物（都是生成的，不入库）
+.site-src/
+site/
+.cache/

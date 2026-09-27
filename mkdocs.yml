@@ -1,0 +1,66 @@
+# 阅读站点配置。
+#
+# 文档源不是仓库根，而是 scripts/build-site.mjs 生成的 .site-src/。
+# 构建流程：node scripts/build-site.mjs && mkdocs build
+#
+# 这里**故意不写 nav**——导航由 .site-src/ 的目录结构自动生成，
+# 每个目录的 index.md（来自仓库里的 README.md）是该节的落地页兼标题来源。
+# 好处是新增任务目录时不用回来改这个文件。
+# 代价是同级顺序按字母排，不完全等于各方向 README 里约定的阅读顺序；
+# 阅读顺序在方向 README 里有专门一节，导航只负责「找得到」。
+
+site_name: 教研室 AI+动物 文献资料库
+site_description: AI+动物方向的公开文献索引——论文、综述、数据集，按任务与年份归档
+docs_dir: .site-src
+site_dir: site
+
+# 站点右上角的「编辑此页」，以及 CONTRIBUTING 里指向 .github/ 的链接都靠它拼绝对地址
+repo_url: https://github.com/yuzhoujun/226-AI-for-Animals-GitHub-Public-Repository
+repo_name: yuzhoujun/226-AI-for-Animals
+edit_uri: edit/main/
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.indexes # 用 index.md 作为该节的落地页与标题
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色
+
+plugins:
+  # 装了 jieba 之后中文检索会按词切分，明显好于默认的逐字切分（见 requirements.txt）
+  - search
+
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true
+      # 默认的 slugify 会把非 ASCII 字符整段丢掉，中文标题于是生成空锚点，
+      # 站内所有 #中文标题 的链接全部失效（CONTRIBUTING 的目录就是重灾区）。
+      # pymdownx 的 slugify 保留 Unicode 词字符，切出来的锚点和 GitHub 一致：
+      # 「## 方式一：网页直接编辑」→ #方式一网页直接编辑，两边的链接可以互相跳。
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - admonition
+  - attr_list
+  - md_in_html
+
+# templates/ 是填写模板，站点上保留（CONTRIBUTING 里有链接指过来）但不进导航
+not_in_nav: |
+  templates/

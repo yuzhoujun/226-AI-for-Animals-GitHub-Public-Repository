@@ -1,0 +1,65 @@
+name: 部署阅读站点
+
+# 只在 main 上部署。PR 不部署（PR 分支的产物没地方放，也没必要），
+# 但仓库一致性检查那个 workflow 会在 PR 上跑，格式问题在合并前就拦住了。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages 部署需要的权限。少了 id-token 会部署失败，少了 pages: write 会拒绝发布。
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 连续推送时只保留最新一次部署，避免旧构建覆盖新站点。
+# 注意不要设 cancel-in-progress: true——部署中途被打断会让 Pages 停在半截状态。
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: 安装站点构建依赖
+        run: pip install -r requirements.txt
+
+      # 顺序不能反：build-site.mjs 先把 markdown 暂存成 .site-src/，mkdocs 才读得到。
+      # 这一步同时是泄漏闸门——审核指南.md 这类本地文件如果混进暂存目录会直接失败。
+      - name: 暂存站点文档
+        run: node scripts/build-site.mjs
+
+      # 用 --strict：内部链接指错、锚点对不上，构建就失败，不会把坏链接发出去。
+      - name: 构建站点
+        run: mkdocs build --strict
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

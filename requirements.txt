@@ -1,0 +1,11 @@
+# 阅读站点的构建依赖（GitHub Actions 与本地都用这份）
+#
+#   pip install -r requirements.txt
+#   node scripts/build-site.mjs && mkdocs build   # 产物在 site/
+
+mkdocs-material>=9.5,<10
+# 中文检索分词。装上之后站内搜索按词切分而不是逐字切分，召回明显更好。
+jieba>=0.42
+# mkdocs-material 会带上它，但 mkdocs.yml 里直接引用了 pymdownx.slugs.slugify
+# （中文标题锚点要用它），所以在这里写明，免得哪天上游改依赖就静默挂掉。
+pymdown-extensions>=10.0
