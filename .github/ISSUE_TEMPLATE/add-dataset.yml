@@ -1,0 +1,99 @@
+name: 提交一个数据集
+description: 不用会 git——填完这个表单，机器人会自动开一个 Pull Request
+title: "[数据集] "
+labels: ["auto-pr", "add-dataset"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        填完提交即可，**不需要会 git**。机器人会把它追加到 `datasets/` 下对应年份的文件里，并自动开一个 PR。
+
+        数据集的字段比论文多，因为**「怎么拿到它」比「它叫什么」更重要**——请把获取方式和 License 填准。
+
+        ⚠️ **不要把数据本体传进仓库**，也不要把别人需要申请才能拿到的数据转存到公开网盘再贴链接。
+        这里只放**官方获取入口**。
+
+        📌 如果这篇工作**同时提出了具体的方法模型**（不只是拿现成模型跑基线），
+        请再用「提交一篇论文」表单提交一次，两边互相链一下——这是允许的，见贡献指南。
+
+  - type: dropdown
+    id: direction
+    attributes:
+      label: 放在哪个方向下
+      description: 按数据集的用途判断——服务于动物任务的选 01，通用基准选 02。
+      options:
+        - 01-ai-for-animals（AI+动物）
+        - 02-foundations（可迁移基础方法）
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: 发布年份
+      description: |
+        填**数据集公开发布**的年份，四位数字。
+        注意和「提交论文」不同：数据集按**发布年**归档，论文按**正式发表年**归档，两边年份不一致是正常的。
+      placeholder: "2024"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: 数据集名称
+      placeholder: WildlifeReID-10k
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: 链接
+      description: 官方页面或论文页。不要贴 `pdf` 链接。
+      placeholder: https://arxiv.org/abs/2406.09211
+    validations:
+      required: true
+
+  - type: textarea
+    id: scale
+    attributes:
+      label: 规模
+      description: |
+        图片/视频数量、个体数、物种数、标注类型——让人一眼判断够不够用。
+      placeholder: 10,000+ 个个体 / 约 33 个物种 / 140,000+ 张图
+    validations:
+      required: true
+
+  - type: dropdown
+    id: access
+    attributes:
+      label: 获取方式
+      description: 选一个最接近的。如果填「直接下载」但实际需要签署协议，审核会被打回。
+      options:
+        - 直接下载
+        - 需要注册
+        - 需要签署协议
+        - 需要邮件申请
+        - 未公开（仅论文描述）
+    validations:
+      required: true
+
+  - type: input
+    id: access_link
+    attributes:
+      label: 从哪拿（下载/申请入口）
+      description: 官方仓库、Kaggle、项目页或申请表单的地址。没有就留空。
+      placeholder: https://www.kaggle.com/datasets/xxx
+    validations:
+      required: false
+
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: |
+        **从官方页面原样抄，别自己推断。** 不确定就填「未明确」。
+      placeholder: CC BY-NC 4.0
+    validations:
+      required: true

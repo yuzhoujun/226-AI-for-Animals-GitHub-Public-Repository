@@ -1,0 +1,97 @@
+name: 提交一篇论文
+description: 不用会 git——填完这个表单，机器人会自动开一个 Pull Request
+title: "[论文] "
+labels: ["auto-pr", "add-paper"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        填完提交即可，**不需要会 git**。机器人会把这条论文追加到对应文件，并自动开一个 PR 等维护者审核。
+
+        如果机器人发现填得有问题（年份不对、链接重复、任务没选对），会在下面回帖说明，改完再编辑一次 Issue 就行。
+
+        ⚠️ **只收「提出新方法」的论文。** 如果这篇工作的主要贡献是发布数据集，请改用「提交一个数据集」表单；
+        既发数据集又提方法的，两个表单各提交一次（这是允许的，见贡献指南）。
+
+        ⚠️ **这里只能选已有的任务目录。** 想开一个新任务分类，先在 [Issue](https://github.com/yuzhoujun/226-AI-for-Animals-GitHub-Public-Repository/issues/new) 里跟维护者确认——
+        新任务目录还要配一份手写的任务说明，不适合自动生成。
+
+  - type: dropdown
+    id: task
+    attributes:
+      label: 放在哪个任务下
+      description: |
+        格式是「方向 / 任务目录名」。任务是按**主实验用的数据集**判断的：
+        用动物数据集（Animal Kingdom、AP-10K 等）选 01，用通用基准（COCO、Kinetics 等）选 02。
+      options:
+        - 01-ai-for-animals / behavior（行为识别与理解）
+        - 01-ai-for-animals / pose-estimation（姿态估计）
+        - 01-ai-for-animals / re-identification（个体重识别）
+        - 02-foundations / action-recognition（动作与行为识别）
+        - 02-foundations / vision-language（视觉-语言与多模态）
+        - 02-foundations / object-detection（目标检测）
+        - 02-foundations / segmentation（图像分割）
+        - 02-foundations / world-models（世界模型）
+        - 02-foundations / image-stitching（图像拼接）
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: 发表年份
+      description: |
+        填**正式发表年**，四位数字。如果只有 arXiv 预印本还没正式发表，填 arXiv 首次上传的年份。
+        例：arXiv 2025 上传、CVPR 2026 发表 → 填 2026。
+      placeholder: "2026"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: 论文完整标题
+      description: 用英文原题，不要用简称。
+      placeholder: Mask R-CNN
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: 链接
+      description: |
+        **优先 arXiv 摘要页**（`arxiv.org/abs/...`），其次是 DOI（`doi.org/...`）或官方项目页。
+        不要贴 `pdf` 结尾的链接。
+      placeholder: https://arxiv.org/abs/1703.06870
+    validations:
+      required: true
+
+  - type: input
+    id: venue
+    attributes:
+      label: 发表在哪
+      description: "会议/期刊名 + 年份，中间一个空格。例：CVPR 2026、TPAMI 2025、arXiv 2026。"
+      placeholder: ICCV 2017
+    validations:
+      required: true
+
+  - type: input
+    id: code
+    attributes:
+      label: 代码仓库（没有就留空）
+      description: GitHub 地址。请先点开确认能访问——填错的话链接检查会拦住整个 PR。
+      placeholder: https://github.com/facebookresearch/detectron2
+    validations:
+      required: false
+
+  - type: textarea
+    id: contribution
+    attributes:
+      label: 一句话贡献
+      description: |
+        20–40 字，说清**做了什么 + 效果如何**。要自己读过之后总结，不要复制摘要。
+        别写「具有重要意义」这类空话。
+      placeholder: 把实例分割和检测统一到一个框架里，在 COCO 上同时刷新两个任务的最好成绩。
+    validations:
+      required: true

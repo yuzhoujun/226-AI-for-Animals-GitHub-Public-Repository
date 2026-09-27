@@ -1,0 +1,76 @@
+name: 提交一篇综述
+description: 不用会 git——填完这个表单，机器人会自动开一个 Pull Request
+title: "[综述] "
+labels: ["auto-pr", "add-survey"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        填完提交即可，**不需要会 git**。机器人会把它追加到 `surveys/` 下对应年份的文件里，并自动开一个 PR。
+
+        判断标准：**系统梳理某个领域已有进展、而不是提出新方法**的，都算综述——
+        包括 Survey、Review、以及各类 "A Survey of..."、"Advances in..."、"Tutorial" 性质的论文。
+
+        综述放在**方向层**（不在任务目录下），因为它通常横跨多个任务。
+
+  - type: dropdown
+    id: direction
+    attributes:
+      label: 放在哪个方向下
+      options:
+        - 01-ai-for-animals（AI+动物）
+        - 02-foundations（可迁移基础方法）
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: 发表年份
+      description: 填**正式发表年**，四位数字。只有 arXiv 预印本的话填首次上传的年份。
+      placeholder: "2025"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: 综述完整标题
+      placeholder: A Survey on Deep Learning for Animal Re-Identification
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: 链接
+      description: 优先 arXiv 摘要页（`arxiv.org/abs/...`），其次是 DOI 或官方页面。不要贴 `pdf` 链接。
+      placeholder: https://arxiv.org/abs/2401.16424
+    validations:
+      required: true
+
+  - type: input
+    id: venue
+    attributes:
+      label: 发表在哪
+      description: "例：Nature Methods 2025、arXiv 2024、TPAMI 2025。"
+      placeholder: Nature Methods 2025
+    validations:
+      required: true
+
+  - type: input
+    id: code
+    attributes:
+      label: 代码仓库（没有就留空）
+      description: 综述一般没有代码，留空即可。
+    validations:
+      required: false
+
+  - type: textarea
+    id: contribution
+    attributes:
+      label: 覆盖范围与主要结论
+      description: 20–40 字，说清**覆盖了哪些工作/环节 + 得出的主要判断**。
+      placeholder: 面向野生动物视频的行为分析综述，覆盖检测、多目标跟踪、个体识别与交互行为识别四个环节，重点指出当前方法在野外视频上的实际可用性差距。
+    validations:
+      required: true

@@ -1,0 +1,63 @@
+name: Issue 转 PR
+
+# 让不会 git 的同学也能贡献：填 Issue 表单 → 机器人把条目写进仓库 → 开一个 PR 等维护者审。
+#
+# 只在 opened / reopened 时跑。**故意不监听 edited**——编辑 Issue 会重跑，
+# 而重跑时上一次的改动还没合进 main，会重复追加一行。要改内容就重新编辑后
+# 关掉再 reopen，或者直接在 PR 上改。
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    # 仓库里的普通 Issue（提问、报错）不该触发。表单一定带「### 链接」这一节。
+    if: contains(github.event.issue.body, '### 链接')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 脚本内部会自己跑一遍 gen-index 和 check-links，
+      # 不通过就只写 .issue-error.md 并置 ok=false，不会产生半个坏 PR。
+      - name: 解析表单并写入条目
+        id: gen
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ',') }}
+        run: node scripts/issue-to-pr.mjs
+
+      - name: 表单有问题就回帖说明
+        if: steps.gen.outputs.ok != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: fs.readFileSync('.issue-error.md', 'utf8'),
+            });
+
+      - name: 开 PR
+        if: steps.gen.outputs.ok == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # 同一个 Issue 重跑时复用同一个分支名，PR 会被更新而不是再开一个
+          branch: issue-${{ github.event.issue.number }}
+          title: ${{ steps.gen.outputs.title }}
+          commit-message: ${{ steps.gen.outputs.title }}
+          body-path: .issue-pr-body.md
+          labels: 待审核
+          delete-branch: true
