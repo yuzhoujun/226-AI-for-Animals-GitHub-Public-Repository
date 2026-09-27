@@ -13,9 +13,9 @@
 
 | 任务 | 目录名 | 说明 | 状态 |
 | --- | --- | --- | --- |
-| 行为识别与理解 | `behavior` | 细粒度行为、长时序行为分析，本方向的核心 | 待建 |
-| 姿态估计 | `pose-estimation` | 关键点检测、野外姿态 | 待建 |
-| 个体重识别 | `re-identification` | 动物个体 ID，区别于通用行人 Re-ID | 待建 |
+| 行为识别与理解 | `behavior` | 细粒度行为、长时序行为分析，本方向的核心 | [6 篇](papers/behavior/) |
+| 姿态估计 | `pose-estimation` | 关键点检测、野外姿态 | [6 篇](papers/pose-estimation/) |
+| 个体重识别 | `re-identification` | 动物个体 ID，区别于通用行人 Re-ID | [4 篇](papers/re-identification/) |
 | 检测、计数与种群调查 | `detection-counting` | 红外相机触发、野生动物普查 | 待建 |
 | 多目标跟踪 | `tracking` | 动物轨迹、群体移动 | 待建 |
 | 面部与个体识别 | `face-identification` | 区别于全身 Re-ID 的一条独立线 | 待建 |
@@ -27,22 +27,45 @@
 
 ## 已收录内容
 
-| 类型 | 年份 | 内容 |
-| --- | --- | --- |
-| 综述 | 2025 | [1 篇](surveys/2025.md) — 动物行为分析深度学习方法综述 |
-| 数据集 | 2021 | [1 个](datasets/2021.md) — AP-10K |
-| 数据集 | 2022 | [1 个](datasets/2022.md) — Animal Kingdom |
-| 数据集 | 2023 | [1 个](datasets/2023.md) — LoTE-Animal |
+**论文**（16 篇）
 
-> ⚠️ **本方向目前还没有动物专属的论文。** 之前的 C3D、SlowFast、TimeSformer、VideoMamba、CLIP、BIKE 等
-> 都是通用方法，已按上面的判定规则移到 [02-foundations](../02-foundations/)。这是符合预期的起点，
-> 不是遗漏——动物方向的论文需要后续专门补充。
+| 任务 | 年份 |
+| --- | --- |
+| [行为识别](papers/behavior/) | [2021](papers/behavior/2021.md) · [2024](papers/behavior/2024.md) · [2025](papers/behavior/2025.md) · [2026](papers/behavior/2026.md) |
+| [姿态估计](papers/pose-estimation/) | [2019](papers/pose-estimation/2019.md) · [2023](papers/pose-estimation/2023.md) · [2025](papers/pose-estimation/2025.md) |
+| [个体重识别](papers/re-identification/) | [2020](papers/re-identification/2020.md) · [2024](papers/re-identification/2024.md) · [2026](papers/re-identification/2026.md) |
+
+**综述**（4 篇）
+
+| 年份 | 内容 |
+| --- | --- |
+| 2024 | [2 篇](surveys/2024.md) — 多模态动物姿态估计综述、野外灵长类行为分析综述 |
+| 2025 | [2 篇](surveys/2025.md) — 动物行为分析深度学习综述、粗到细粒度动物动作识别综述 |
+
+**数据集**（12 个）
+
+| 年份 | 内容 |
+| --- | --- |
+| 2021 | [1 个](datasets/2021.md) — AP-10K |
+| 2022 | [2 个](datasets/2022.md) — Animal Kingdom、APT-36K |
+| 2023 | [5 个](datasets/2023.md) — LoTE-Animal、APTv2、Animal3D、ChimpACT、WildlifeDatasets |
+| 2024 | [3 个](datasets/2024.md) — PanAf20K、WildlifeReID-10k、Multispecies Animal Re-ID |
+| 2025 | [1 个](datasets/2025.md) — MammAlps |
+
+> 📌 **本方向的一个显著特点：数据集论文占比很高。** 上面 12 个数据集里，至少有 5 个同时发表在
+> NeurIPS Datasets & Benchmarks（AP-10K、APT-36K）、NeurIPS（ChimpACT）、IJCV（PanAf20K）、CVPR（MammAlps）
+> 等正式会议期刊上。这不是分类错误——动物领域最贵的是标注，很多高水平工作本身就是「把数据做出来」。
+> 因此找工作时**数据集和论文两边都要看**：数据集页面告诉你「能做什么任务」，论文页面告诉你「别人怎么做」。
 
 ## 建议阅读顺序
 
 1. 先读 [surveys/2025.md](surveys/2025.md) 那篇动物行为分析综述，建立「这个方向在解决什么问题」的整体认识。
 2. 再看 [datasets/](datasets/)，明确任务定义、标注形式和评测指标——**动物方向的难点往往在数据而不在模型**。
-3. 方法层面去 [02-foundations](../02-foundations/) 看：动物方向目前大量复用通用视频理解与视觉语言模型的技术栈，
+3. 三个任务各挑一篇入门：
+   - 行为识别 → [AnimalMotionCLIP（2025）](papers/behavior/2025.md)，看视觉-语言这条路怎么绕开行为标注。
+   - 姿态估计 → [AniMer（2025）](papers/pose-estimation/2025.md)，看三维参数化模型这条线。
+   - 个体重识别 → [OpenAnimals（2024）](papers/re-identification/2024.md)，看「为什么行人 Re-ID 那套不够用」。
+4. 方法层面去 [02-foundations](../02-foundations/) 看：本方向的模型骨干基本都来自那里，
    按 3D CNN → Transformer → 状态空间模型 → 视觉语言模型这条脉络读。
 
 ## 相关方向
