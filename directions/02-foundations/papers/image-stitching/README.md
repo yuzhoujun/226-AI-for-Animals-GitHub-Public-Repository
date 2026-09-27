@@ -2,8 +2,14 @@
 
 把多张存在重叠区域的图像对齐并融合成一张无缝的大视场图像，是全景成像、航拍测绘、医学影像拼接等应用的基础技术。
 
-> 📌 本任务暂无收录内容。按 [CONTRIBUTING.md](../../../../CONTRIBUTING.md#加一篇论文) 添加论文后，
-> 在 [方向 README](../../README.md) 的「已收录内容」表里补上链接。
+> 📌 按 [CONTRIBUTING.md](../../../../CONTRIBUTING.md#加一篇论文) 添加论文后，
+> 下面的收录表会自动更新，不用手动来改这一页。
+
+## 本任务收录
+
+<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+（暂无收录）
+<!-- AUTO:INDEX:END -->
 
 ## 研究范围
 

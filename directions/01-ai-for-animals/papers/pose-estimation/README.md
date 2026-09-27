@@ -28,15 +28,20 @@
 3. **[AniMer（2025）](2025.md)**——三维路线的最新代表，**如果只读一篇读这篇**。
 4. **[AP-CAP（2025）](2025.md)**——数据侧的解法，和上面几条正交，可组合。
 
-## 年份索引
+## 本任务收录
 
-<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-| 年份 | 文件 |
-| --- | --- |
-| 2025 | [4 篇](2025.md) — AniMer: Animal Pose and Shape Estimation Using Family Aware Transformer、AniMer+: Unified Pose and Shape Estimation Across Mammalia and Aves via Family-Aware Transformer、DiffPose-Animal: A Language-Conditioned Diffusion Framework for Animal Pose Estimation、AP-CAP: Advancing High-Quality Data Synthesis for Animal Pose Estimation via a Controllable Image Synthesis Pipeline |
-| 2023 | [1 篇](2023.md) — CLAMP: Prompt-based Contrastive Learning for Connecting Language and Animal Pose |
-| 2019 | [1 篇](2019.md) — Cross-Domain Adaptation for Animal Pose Estimation |
-<!-- AUTO:YEARS:END -->
+<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+共 6 篇。
+
+| 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
+| --- | --- | --- | --- | --- |
+| [2025](2025.md) | [AniMer: Animal Pose and Shape Estimation Using Family Aware Transformer](https://arxiv.org/abs/2412.00837) | CVPR 2025 | — | 用科属感知的 Transformer 从单张图像恢复动物的三维姿态与形状，把人体参数化模型那套思路迁移到动物。 |
+| [2025](2025.md) | [AniMer+: Unified Pose and Shape Estimation Across Mammalia and Aves via Family-Aware Transformer](https://arxiv.org/abs/2508.00298) | TPAMI 2025 | — | AniMer 的期刊扩展版，把统一建模范围从哺乳纲扩到鸟纲，并补充了更大规模的跨物种评测。 |
+| [2025](2025.md) | [DiffPose-Animal: A Language-Conditioned Diffusion Framework for Animal Pose Estimation](https://arxiv.org/abs/2508.08783) | arXiv 2025 | — | 把姿态估计建模成以语言为条件的扩散生成过程，用文本描述引导关键点预测。 |
+| [2025](2025.md) | [AP-CAP: Advancing High-Quality Data Synthesis for Animal Pose Estimation via a Controllable Image Synthesis Pipeline](https://arxiv.org/abs/2504.00394) | arXiv 2025 | — | 用可控图像合成流水线批量生成带关键点标注的动物图像，直接缓解姿态标注数据稀缺的问题。 |
+| [2023](2023.md) | [CLAMP: Prompt-based Contrastive Learning for Connecting Language and Animal Pose](https://arxiv.org/abs/2206.11752) | CVPR 2023 | — | 用文本提示加对比学习把语言描述与动物关键点对齐，使模型能泛化到训练时没见过的物种。 |
+| [2019](2019.md) | [Cross-Domain Adaptation for Animal Pose Estimation](https://arxiv.org/abs/1908.05806) | ICCV 2019 Oral | — | 用跨域适应把在合成数据上学到的姿态模型迁移到真实动物视频上，绕开动物关键点标注昂贵这一核心瓶颈。 |
+<!-- AUTO:INDEX:END -->
 
 ## 相关任务
 

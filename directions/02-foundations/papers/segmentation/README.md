@@ -14,17 +14,20 @@
 4. **HQ-SAM（2023）**——SAM 的边缘质量在科研场景经常不够用，这篇是直接对症的改进。
 5. **SAM 2（2024）**——要处理视频/序列数据（红外相机连续触发）时看这篇。
 
-## 年份索引
+## 本任务收录
 
-<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-| 年份 | 文件 |
-| --- | --- |
-| 2024 | [1 篇](2024.md) — SAM 2: Segment Anything in Images and Videos |
-| 2023 | [2 篇](2023.md) — Segment Anything、Segment Anything in High Quality |
-| 2022 | [1 篇](2022.md) — Masked-attention Mask Transformer for Universal Image Segmentation |
-| 2021 | [1 篇](2021.md) — SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers |
-| 2015 | [1 篇](2015.md) — U-Net: Convolutional Networks for Biomedical Image Segmentation |
-<!-- AUTO:YEARS:END -->
+<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+共 6 篇。
+
+| 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
+| --- | --- | --- | --- | --- |
+| [2024](2024.md) | [SAM 2: Segment Anything in Images and Videos](https://arxiv.org/abs/2408.00714) | ICLR 2025 | [代码](https://github.com/facebookresearch/sam2) | 把可提示分割扩展到视频，用记忆机制跨帧传播掩码，实现视频中任意目标的零样本跟踪式分割。 |
+| [2023](2023.md) | [Segment Anything](https://arxiv.org/abs/2304.02643) | ICCV 2023 | [代码](https://github.com/facebookresearch/segment-anything) | 构建了十亿掩码级别的分割数据集并训练出可提示的分割基础模型，用点、框或文本提示即可零样本分割任意物体。 |
+| [2023](2023.md) | [Segment Anything in High Quality](https://arxiv.org/abs/2306.01567) | NeurIPS 2023 | [代码](https://github.com/SysCV/sam-hq) | 指出 SAM 在细粒度边缘上质量不足，通过高质量掩码先验与轻量适配把输出精度提升到可用的细节级别。 |
+| [2022](2022.md) | [Masked-attention Mask Transformer for Universal Image Segmentation](https://arxiv.org/abs/2112.01527) | CVPR 2022 | [代码](https://github.com/facebookresearch/Mask2Former) | 用掩码注意力约束交叉注意力只落在预测掩码内部，让同一套架构统一处理语义、实例与全景分割三类任务。 |
+| [2021](2021.md) | [SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers](https://arxiv.org/abs/2105.15203) | NeurIPS 2021 | [代码](https://github.com/NVlabs/SegFormer) | 用无位置编码的分层 Transformer 编码器配极轻量的 MLP 解码器，结构简单但在多尺度分割上兼顾了精度与速度。 |
+| [2015](2015.md) | [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597) | MICCAI 2015 | [第三方实现](https://github.com/milesial/Pytorch-UNet) | 提出对称的编码器-解码器结构并用跳连把浅层细节直接送到解码端，在小样本医学图像上取得很好效果，成为语义分割最通用的骨干结构。 |
+<!-- AUTO:INDEX:END -->
 
 ## 与本方向其他任务的关系
 

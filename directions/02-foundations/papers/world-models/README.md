@@ -24,16 +24,19 @@
 4. **V-JEPA 2 / 2.1（2025–2026）**——自监督视频表征路线。**如果只想读一篇，读 V-JEPA 2**：
    它是目前与视觉表征学习结合最紧、最容易迁移到动物视频上的一条。
 
-## 年份索引
+## 本任务收录
 
-<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-| 年份 | 文件 |
-| --- | --- |
-| 2026 | [1 篇](2026.md) — V-JEPA 2.1: Unlocking Dense Features in Video Self-Supervised Learning |
-| 2025 | [2 篇](2025.md) — Mastering Diverse Domains through World Models、V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning |
-| 2024 | [1 篇](2024.md) — Genie: Generative Interactive Environments |
-| 2018 | [1 篇](2018.md) — World Models |
-<!-- AUTO:YEARS:END -->
+<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+共 5 篇。
+
+| 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
+| --- | --- | --- | --- | --- |
+| [2026](2026.md) | [V-JEPA 2.1: Unlocking Dense Features in Video Self-Supervised Learning](https://arxiv.org/abs/2603.14482) | ECCV 2026 | [代码](https://github.com/facebookresearch/vjepa2) | 针对 V-JEPA 2 的稠密特征质量不足做改进，让自监督视频表征在需要逐像素/逐区域预测的下游任务上更好用。 |
+| [2025](2025.md) | [Mastering Diverse Domains through World Models](https://arxiv.org/abs/2301.04104) | Nature 2025 | [代码](https://github.com/danijar/dreamerv3) | DreamerV3 用一套固定超参在跨领域任务上稳定训练出世界模型，无需为每个环境调参，是「世界模型可通用」的重要证据。 |
+| [2025](2025.md) | [V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning](https://arxiv.org/abs/2506.09985) | arXiv 2025 | [代码](https://github.com/facebookresearch/vjepa2) | 在大规模视频上自监督预训练后接少量动作数据，使模型具备零样本运动理解与基于预测的机器人规划能力。 |
+| [2024](2024.md) | [Genie: Generative Interactive Environments](https://arxiv.org/abs/2402.15391) | ICML 2024 | — | 从无标注的互联网视频里学出一个可交互的生成式环境，仅凭单张图或文本提示就能生成可逐帧操控的虚拟世界。 |
+| [2018](2018.md) | [World Models](https://arxiv.org/abs/1803.10122) | NeurIPS 2018 | [代码](https://github.com/hardmaru/WorldModelsExperiments) | 把环境压缩成隐空间、在隐空间里学一个时序预测模型、再在模型内部训练策略，首次完整给出「世界模型」这条技术路线。 |
+<!-- AUTO:INDEX:END -->
 
 ## 与本方向其他任务的关系
 

@@ -36,16 +36,20 @@
 3. **[AnimalMotionCLIP（2025）](2025.md)**——**如果只读一篇读这篇**，它点出了 CLIP 类模型在行为任务上的根本缺陷（缺运动建模）。
 4. **[PriVi（2026）](2026.md)**——最新进展，看通用行为模型这条线走到哪了。
 
-## 年份索引
+## 本任务收录
 
-<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-| 年份 | 文件 |
-| --- | --- |
-| 2026 | [1 篇](2026.md) — PriVi: Towards A General-Purpose Video Model For Primate Behavior In The Wild |
-| 2025 | [3 篇](2025.md) — Domain-Adaptive Pretraining Improves Primate Behavior Recognition、AnimalMotionCLIP: Embedding motion in CLIP for Animal Behavior Analysis、Fine-Tuning Video-Text Contrastive Model for Primate Behavior Retrieval from Unlabeled Raw Videos |
-| 2024 | [1 篇](2024.md) — AlphaChimp: Tracking and Behavior Recognition of Chimpanzees |
-| 2021 | [1 篇](2021.md) — Video-based cattle identification and action recognition |
-<!-- AUTO:YEARS:END -->
+<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+共 6 篇。
+
+| 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
+| --- | --- | --- | --- | --- |
+| [2026](2026.md) | [PriVi: Towards A General-Purpose Video Model For Primate Behavior In The Wild](https://arxiv.org/abs/2511.09675) | CVPR 2026 | — | 面向野外灵长类行为训练通用视频模型，目标是跨物种、跨场景复用同一套行为理解骨干。 |
+| [2025](2025.md) | [Domain-Adaptive Pretraining Improves Primate Behavior Recognition](https://arxiv.org/abs/2509.12193) | CVPR 2025 Workshop (CV4Animals) | — | 用领域自适应预训练缩小通用视频模型与野外灵长类视频之间的域差距，在小样本行为识别上取得提升。 |
+| [2025](2025.md) | [AnimalMotionCLIP: Embedding motion in CLIP for Animal Behavior Analysis](https://arxiv.org/abs/2505.00569) | CV4Animals Workshop 2025 | — | 在 CLIP 的表征里显式注入运动信息，弥补图像-文本预训练模型对时序行为不敏感的缺陷。 |
+| [2025](2025.md) | [Fine-Tuning Video-Text Contrastive Model for Primate Behavior Retrieval from Unlabeled Raw Videos](https://arxiv.org/abs/2505.05681) | arXiv 2025 | — | 用视频-文本对比模型的微调做行为检索，把「找某类行为的片段」变成文本查询问题，绕开逐帧标注。 |
+| [2024](2024.md) | [AlphaChimp: Tracking and Behavior Recognition of Chimpanzees](https://arxiv.org/abs/2410.17136) | arXiv 2024 | — | 在 ChimpACT 数据集上把黑猩猩的多目标跟踪与行为识别串成一条管线，解决长视频里个体身份与行为标签的对应问题。 |
+| [2021](2021.md) | [Video-based cattle identification and action recognition](https://arxiv.org/abs/2110.07103) | DICTA 2021 | — | 在牛场监控视频上同时做个体识别与动作识别，是较早把这两件事放进同一套视频管线的工作。 |
+<!-- AUTO:INDEX:END -->
 
 ## 相关任务
 

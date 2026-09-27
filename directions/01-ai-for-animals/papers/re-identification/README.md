@@ -35,16 +35,19 @@
 3. **[Cross-Species Animal Re-Identification（2026）](2026.md)**——最新的跨物种泛化路线。
 4. **[WildFusion（2024）](2024.md)**——工程视角，看多特征融合与概率校准怎么做。
 
-## 年份索引
+## 本任务收录
 
-<!-- AUTO:YEARS:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-| 年份 | 文件 |
-| --- | --- |
-| 2026 | [1 篇](2026.md) — Cross-Species Animal Re-Identification with Semantic Consistency Learning |
-| 2025 | [1 篇](2025.md) — OpenAnimals: Revisiting Person Re-Identification for Animals Towards Better Generalization |
-| 2024 | [2 篇](2024.md) — WildFusion: Individual Animal Identification with Calibrated Similarity Fusion、WildlifeDatasets: An open-source toolkit for animal re-identification |
-| 2020 | [1 篇](2020.md) — Similarity Learning Networks for Animal Individual Re-Identification — Beyond the Capabilities of Human Observers |
-<!-- AUTO:YEARS:END -->
+<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
+共 5 篇。
+
+| 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
+| --- | --- | --- | --- | --- |
+| [2026](2026.md) | [Cross-Species Animal Re-Identification with Semantic Consistency Learning](https://arxiv.org/abs/2609.09705) | ECCV 2026 | — | 用语义一致性约束做跨物种个体重识别，让在一个物种上学到的身份表征能迁移到标注稀缺的其他物种。 |
+| [2025](2025.md) | [OpenAnimals: Revisiting Person Re-Identification for Animals Towards Better Generalization](https://arxiv.org/abs/2410.00204) | ICCV 2025 | — | 把行人重识别的技术栈系统性搬到动物场景，指出关键难点是泛化到新个体与新物种，并给出更强的基线方法。 |
+| [2024](2024.md) | [WildFusion: Individual Animal Identification with Calibrated Similarity Fusion](https://arxiv.org/abs/2408.12934) | ECCV 2024 Workshop | — | 把多种相似度信号融合并做概率校准，让个体识别在跨时间、跨视角的野外条件下更稳定。 |
+| [2024](2024.md) | [WildlifeDatasets: An open-source toolkit for animal re-identification](https://arxiv.org/abs/2311.09118) | WACV 2024 | [代码](https://github.com/WildlifeDatasets/wildlife-datasets) | 除工具包本身，还提出了跨物种个体重识别基础模型 MegaDescriptor，在多个物种上取得当时最好水平。数据集条目另见 [datasets/2023.md](../../datasets/2023.md)。 |
+| [2020](2020.md) | [Similarity Learning Networks for Animal Individual Re-Identification — Beyond the Capabilities of Human Observers](https://arxiv.org/abs/1902.09324) | WACV 2020 Workshop | — | 系统验证了相似度学习网络在多个物种的个体识别上能达到甚至超过人类观察者的水平，确立了这条技术路线的可行性。 |
+<!-- AUTO:INDEX:END -->
 
 ## 相关任务
 

@@ -12,7 +12,12 @@
 // 可用的块名：
 //   OVERVIEW     根 README 的方向总览（论文/综述/数据集 计数）
 //   COLLECTION   方向 README 的已收录内容（按任务列出各年份）
-//   YEARS        任务 README 的年份索引（从各年份文件里抽取标题）
+//   INDEX        目录级合并总表：把该目录下所有年份文件的表格拼成一张，
+//                前面加一列年份。表头沿用年份文件自己的，所以论文、综述、
+//                数据集三种不同列数的表都能用同一个函数
+//
+// 块是逐个文件自愿加的：文件里没有对应标记就跳过，不报错（空的目录不值得
+// 先摆一个「暂无收录」）。
 //
 // 只统计「数据」表格，README 的叙述文字与阅读顺序不受影响。
 
@@ -32,15 +37,34 @@ function yearFiles(dir) {
     .sort();
 }
 
-/** 只数正文表格里的条目行：以「| [」开头，排除表头与分隔行 */
-function entries(file) {
-  return readFileSync(file, "utf8")
-    .split(/\r?\n/)
+/**
+ * 解析一个年份文件，得到两样东西：
+ *   items —— 条目（标题），计数和 COLLECTION 用
+ *   table —— 表格本身（表头 + 整行），合并总表用
+ * 条目行以「| [」开头，据此把表头和分隔行排除掉。
+ */
+function parseYear(file) {
+  const lines = readFileSync(file, "utf8").split(/\r?\n/);
+
+  const items = lines
     .filter((l) => /^\|\s*\[/.test(l))
-    .map((l) => {
-      const m = l.match(/^\|\s*\[([^\]]+)\]/);
-      return { title: m ? m[1] : "?" };
-    });
+    .map((l) => ({ title: l.match(/^\|\s*\[([^\]]+)\]/)?.[1] ?? "?" }));
+
+  const sep = lines.findIndex((l) => /^\|\s*:?-{3,}/.test(l));
+  let table = null;
+  if (sep > 0) {
+    const cells = lines[sep - 1]
+      .split("|")
+      .slice(1, -1)
+      .map((c) => c.trim());
+    const rows = [];
+    for (let i = sep + 1; i < lines.length; i++) {
+      if (/^\|\s*\[/.test(lines[i])) rows.push(lines[i].trimEnd());
+      else if (rows.length) break; // 表格到此为止
+    }
+    if (cells.length && rows.length) table = { cells, rows };
+  }
+  return { items, table };
 }
 
 /** 各任务子目录（papers/ 下，排除空目录） */
@@ -54,26 +78,18 @@ function taskDirs(dir) {
 }
 
 function scanDirection(dir) {
-  const papers = {};
-  for (const task of taskDirs(dir)) {
-    const files = yearFiles(join(dir, "papers", task)).map((f) => ({
+  const scan = (sub) =>
+    yearFiles(join(dir, sub)).map((f) => ({
       year: f.replace(/\.md$/, ""),
       file: f,
-      items: entries(join(dir, "papers", task, f)),
+      ...parseYear(join(dir, sub, f)),
     }));
-    papers[task] = files;
-  }
-  const surveys = yearFiles(join(dir, "surveys")).map((f) => ({
-    year: f.replace(/\.md$/, ""),
-    file: f,
-    items: entries(join(dir, "surveys", f)),
-  }));
-  const datasets = yearFiles(join(dir, "datasets")).map((f) => ({
-    year: f.replace(/\.md$/, ""),
-    file: f,
-    items: entries(join(dir, "datasets", f)),
-  }));
-  return { papers, surveys, datasets };
+
+  const papers = {};
+  // 用模板串而不是 join：join 在 Windows 上产出反斜杠，CI（Linux）会把
+  // 「papers\behavior」当成一个文件名，找不到目录
+  for (const task of taskDirs(dir)) papers[task] = scan(`papers/${task}`);
+  return { papers, surveys: scan("surveys"), datasets: scan("datasets") };
 }
 
 const count = (o) => Object.values(o).flat().reduce((n, f) => n + f.items.length, 0);
@@ -139,17 +155,34 @@ function blockCollection(d, prefix) {
   return out.join("\n").trimEnd();
 }
 
-function blockYears(files) {
-  // 年份倒序（新的在前），同名条目合并为「标题 ×N」
-  const rows = [...files].reverse().map((f) => {
-    const seen = new Map();
-    for (const i of f.items) seen.set(i.title, (seen.get(i.title) ?? 0) + 1);
-    const label = [...seen.entries()]
-      .map(([t, n]) => (n > 1 ? `${t} ×${n}` : t))
-      .join("、");
-    return `| ${f.year} | [${f.items.length} 篇](${f.file}) — ${label} |`;
-  });
-  return ["| 年份 | 文件 |", "| --- | --- |", ...rows].join("\n");
+/**
+ * 合并总表：把一个目录下所有年份文件的表格拼成一张，前面加一列年份，
+ * 年份那一格链回年份文件。
+ *
+ * 这样任何一级 README 点开就是该目录的完整清单——比如 datasets/README.md
+ * 直接列出全部数据集，不用逐个年份文件翻。表格是生成的，所以永远不会
+ * 出现「目录里有 12 个数据集、README 里只有 1 个」这种烂法。
+ *
+ * 表头沿用年份文件自己的，所以论文（标题/发表/代码/一句话贡献）和
+ * 数据集（数据集/规模/获取方式/License）用同一个函数，不需要按类型写死。
+ */
+function blockIndex(files, unit) {
+  const ordered = [...files].reverse(); // 新的在前
+  const total = ordered.reduce((n, f) => n + f.items.length, 0);
+  if (!total) return "（暂无收录）";
+
+  const head = ordered.find((f) => f.table)?.table.cells ?? ["标题"];
+  const out = [
+    `共 ${total} ${unit}。`,
+    "",
+    `| 年份 | ${head.join(" | ")} |`,
+    `| --- | ${head.map(() => "---").join(" | ")} |`,
+  ];
+  for (const f of ordered) {
+    // 条目行本身以「| 」开头，所以直接接在年份格后面
+    for (const row of f.table?.rows ?? []) out.push(`| [${f.year}](${f.file}) ${row}`);
+  }
+  return out.join("\n");
 }
 
 // ---------- 写回 ----------
@@ -159,6 +192,13 @@ const FILES = new Map(); // abs path -> { text, dirty }
 function read(abs) {
   if (!FILES.has(abs)) FILES.set(abs, { text: readFileSync(abs, "utf8"), dirty: false });
   return FILES.get(abs);
+}
+
+/** 文件里没写这个标记就跳过：块是逐个文件自愿加的，不强制 */
+function injectIfPresent(abs, name, body) {
+  if (!existsSync(abs)) return;
+  if (!readFileSync(abs, "utf8").includes(`<!-- AUTO:${name}:BEGIN`)) return;
+  inject(abs, name, body);
 }
 
 function inject(abs, name, body) {
@@ -221,10 +261,17 @@ inject(rootReadme, "OVERVIEW", blockOverview(dirs));
 
 for (const d of Object.values(dirs)) {
   inject(join(d.abs, "README.md"), "COLLECTION", blockCollection(d, ""));
+
+  // papers/ 下的每个任务、以及 datasets/ 和 surveys/，各自合并成一张总表。
+  // papers/README.md 本身不加：它下面还有任务子目录，那些页面已经各有一张
+  // 完整清单了，再加一张就是把同一批数据报第三遍。
   for (const [task, files] of Object.entries(d.papers)) {
-    if (!files.length) continue;
-    inject(join(d.abs, "papers", task, "README.md"), "YEARS", blockYears(files));
+    // 空的也生成（「（暂无收录）」）：不跳过，否则空任务的块会一直是空的，
+    // 加了论文之后那一页仍是一片空白，看不出是没写还是脚本没跑
+    injectIfPresent(join(d.abs, "papers", task, "README.md"), "INDEX", blockIndex(files, "篇"));
   }
+  injectIfPresent(join(d.abs, "datasets", "README.md"), "INDEX", blockIndex(d.datasets, "个"));
+  injectIfPresent(join(d.abs, "surveys", "README.md"), "INDEX", blockIndex(d.surveys, "篇"));
 }
 
 // ---------- 落盘 / 检查 ----------
