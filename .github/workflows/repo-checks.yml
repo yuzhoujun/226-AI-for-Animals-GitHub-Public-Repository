@@ -27,6 +27,12 @@ jobs:
       - name: 校验任务下拉框是否为最新
         run: node scripts/gen-forms.mjs --check
 
+      # 站点导航（mkdocs.yml 里的 nav）也是生成的：MKdocs 的隐式导航只认目录名，
+      # 会把 01-ai-for-animals 显示成「01 ai for animals」。加了任务目录没重跑，
+      # 这里失败，否则要等 mkdocs build --strict 报「有页面不在 nav 里」。
+      - name: 校验站点导航是否为最新
+        run: node scripts/gen-nav.mjs --check
+
       # 指向不存在文件的相对链接（比如尚未创建的任务目录）
       - name: 校验仓库内相对链接
         run: node scripts/check-links.mjs

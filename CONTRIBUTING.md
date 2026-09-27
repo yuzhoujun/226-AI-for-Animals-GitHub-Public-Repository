@@ -168,6 +168,10 @@ git push origin add-your-topic
 各级 README 的收录表都是脚本从年份文件生成的，**不用手动去别处补链接**；
 方向 README 任务表里的「状态」列（几篇）也是数出来的，同样不用改。
 
+（**新建了年份文件**的话，三处生成物要刷新：`node scripts/gen-index.mjs`、
+`gen-forms.mjs`、`gen-nav.mjs`。装了 Node 就跑一下；没装或者用的网页编辑，
+不用管——CI 会标出来，维护者跑一下就好。）
+
 唯一要手动动的，是**新建了一个任务分类**——回方向 `README.md` 的「任务分类」表加一行。
 那张表的任务名、说明和排列顺序是手写的，脚本靠它读任务的中文名与顺序，
 并据此生成 Issue 表单的任务下拉框。
@@ -341,6 +345,7 @@ npx markdownlint-cli2 --fix "**/*.md"  # 自动修复大部分格式问题
 
 node scripts/gen-index.mjs             # 重新生成 README 的统计块、任务表的状态列
 node scripts/gen-forms.mjs             # 重新生成 Issue 表单的任务下拉框
+node scripts/gen-nav.mjs               # 重新生成站点的侧边栏导航
 node scripts/check-links.mjs           # 检查仓库内相对链接
 node scripts/check-xref.mjs            # 检查正文里对具体条目的引用
 ```
@@ -376,6 +381,10 @@ CI 会校验统计块是否最新（`--check` 模式），过期会直接失败�
   `gen-index.mjs` 数出来。这一列以前是手写的，已经烂过：写着 4 篇实际有 5 篇。
 - **Issue 表单的任务下拉框**由 `gen-forms.mjs` 从各方向的任务表生成。以前是手抄的，
   而且只抄了「已经有目录的」，于是登记为「待建」的任务在表单里根本选不到。
+- **站点的侧边栏导航**（`mkdocs.yml` 里的 `nav`）由 `gen-nav.mjs` 生成。
+  MkDocs 自动生成的导航只认目录名，`01-ai-for-animals` 会显示成「01 ai for animals」，
+  而目录名必须是英文小写（链接要用）——所以标题得显式写，又不能让它是手抄的。
+  顺带把同级顺序按方向 README 的任务表排，年份文件新的在前。
 
 两份都由 CI 校验（`--check`），过期会直接失败并告诉你怎么修。
 

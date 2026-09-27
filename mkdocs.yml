@@ -3,16 +3,101 @@
 # 文档源不是仓库根，而是 scripts/build-site.mjs 生成的 .site-src/。
 # 构建流程：node scripts/build-site.mjs && mkdocs build
 #
-# 这里**故意不写 nav**——导航由 .site-src/ 的目录结构自动生成，
-# 每个目录的 index.md（来自仓库里的 README.md）是该节的落地页兼标题来源。
-# 好处是新增任务目录时不用回来改这个文件。
-# 代价是同级顺序按字母排，不完全等于各方向 README 里约定的阅读顺序；
-# 阅读顺序在方向 README 里有专门一节，导航只负责「找得到」。
+# nav 由 scripts/gen-nav.mjs 生成（见下面的 AUTO:NAV 标记），不要手改。
+#
+# 原先是交给 MkDocs 自动生成的，但它的隐式导航**只认目录名**——
+# `01-ai-for-animals` 会显示成「01 ai for animals」，`datasets` 显示成「Datasets」，
+# 而目录名必须是英文小写（链接和 URL 要用），改不了。结果侧边栏是
+# 「Directions / Datasets / Papers / Behavior」这种中英混排。
+#
+# 顺带解决了两件事：同级顺序按方向 README 任务表的阅读顺序排（字母序不是阅读顺序），
+# 年份文件新的在前（和各级 README 的收录表一致）。
 
 site_name: 教研室 AI+动物 文献资料库
 site_description: AI+动物方向的公开文献索引——论文、综述、数据集，按任务与年份归档
 docs_dir: .site-src
 site_dir: site
+
+# AUTO:NAV:BEGIN 由 scripts/gen-nav.mjs 生成，请勿手改
+nav:
+  - "首页": index.md
+  - "如何添加内容": CONTRIBUTING.md
+  - "研究方向索引":
+      - directions/index.md
+      - "AI+动物":
+          - directions/01-ai-for-animals/index.md
+          - "论文":
+              - "行为识别与理解":
+                  - directions/01-ai-for-animals/papers/behavior/index.md
+                  - "2026": directions/01-ai-for-animals/papers/behavior/2026.md
+                  - "2025": directions/01-ai-for-animals/papers/behavior/2025.md
+                  - "2024": directions/01-ai-for-animals/papers/behavior/2024.md
+                  - "2021": directions/01-ai-for-animals/papers/behavior/2021.md
+              - "姿态估计":
+                  - directions/01-ai-for-animals/papers/pose-estimation/index.md
+                  - "2025": directions/01-ai-for-animals/papers/pose-estimation/2025.md
+                  - "2023": directions/01-ai-for-animals/papers/pose-estimation/2023.md
+                  - "2019": directions/01-ai-for-animals/papers/pose-estimation/2019.md
+              - "个体重识别":
+                  - directions/01-ai-for-animals/papers/re-identification/index.md
+                  - "2026": directions/01-ai-for-animals/papers/re-identification/2026.md
+                  - "2025": directions/01-ai-for-animals/papers/re-identification/2025.md
+                  - "2024": directions/01-ai-for-animals/papers/re-identification/2024.md
+                  - "2020": directions/01-ai-for-animals/papers/re-identification/2020.md
+          - "综述":
+              - directions/01-ai-for-animals/surveys/index.md
+              - "2025": directions/01-ai-for-animals/surveys/2025.md
+              - "2024": directions/01-ai-for-animals/surveys/2024.md
+          - "数据集":
+              - directions/01-ai-for-animals/datasets/index.md
+              - "2025": directions/01-ai-for-animals/datasets/2025.md
+              - "2024": directions/01-ai-for-animals/datasets/2024.md
+              - "2023": directions/01-ai-for-animals/datasets/2023.md
+              - "2022": directions/01-ai-for-animals/datasets/2022.md
+              - "2021": directions/01-ai-for-animals/datasets/2021.md
+      - "可迁移基础方法":
+          - directions/02-foundations/index.md
+          - "论文":
+              - "动作与行为识别":
+                  - directions/02-foundations/papers/action-recognition/index.md
+                  - "2024": directions/02-foundations/papers/action-recognition/2024.md
+                  - "2022": directions/02-foundations/papers/action-recognition/2022.md
+                  - "2021": directions/02-foundations/papers/action-recognition/2021.md
+                  - "2020": directions/02-foundations/papers/action-recognition/2020.md
+                  - "2019": directions/02-foundations/papers/action-recognition/2019.md
+                  - "2015": directions/02-foundations/papers/action-recognition/2015.md
+              - "视觉-语言与多模态":
+                  - directions/02-foundations/papers/vision-language/index.md
+                  - "2023": directions/02-foundations/papers/vision-language/2023.md
+                  - "2021": directions/02-foundations/papers/vision-language/2021.md
+              - "目标检测":
+                  - directions/02-foundations/papers/object-detection/index.md
+                  - "2024": directions/02-foundations/papers/object-detection/2024.md
+                  - "2023": directions/02-foundations/papers/object-detection/2023.md
+                  - "2021": directions/02-foundations/papers/object-detection/2021.md
+                  - "2020": directions/02-foundations/papers/object-detection/2020.md
+                  - "2017": directions/02-foundations/papers/object-detection/2017.md
+              - "图像分割":
+                  - directions/02-foundations/papers/segmentation/index.md
+                  - "2024": directions/02-foundations/papers/segmentation/2024.md
+                  - "2023": directions/02-foundations/papers/segmentation/2023.md
+                  - "2022": directions/02-foundations/papers/segmentation/2022.md
+                  - "2021": directions/02-foundations/papers/segmentation/2021.md
+                  - "2015": directions/02-foundations/papers/segmentation/2015.md
+              - "世界模型":
+                  - directions/02-foundations/papers/world-models/index.md
+                  - "2026": directions/02-foundations/papers/world-models/2026.md
+                  - "2025": directions/02-foundations/papers/world-models/2025.md
+                  - "2024": directions/02-foundations/papers/world-models/2024.md
+                  - "2018": directions/02-foundations/papers/world-models/2018.md
+              - "图像拼接":
+                  - directions/02-foundations/papers/image-stitching/index.md
+          - "综述":
+              - directions/02-foundations/surveys/index.md
+              - "2025": directions/02-foundations/surveys/2025.md
+          - "数据集":
+              - directions/02-foundations/datasets/index.md
+# AUTO:NAV:END
 
 # 默认是 GitHub Pages 的地址。镜像到 226 服务器（挂在子路径下）时用环境变量覆盖：
 #   SITE_URL=https://<你的域名>/ai-animals/ mkdocs build --strict
