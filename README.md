@@ -1,14 +1,14 @@
-# 教研室文献资料库
+# 教研室 AI+动物 文献资料库
 
-教研室各研究方向的公开文献索引。按**研究方向**归类，按**年份**归档，**只存链接不存 PDF**。
+教研室在 **AI+动物** 方向的公开文献索引。按**研究方向**归类，按**任务**细分，按**年份**归档，**只存链接不存 PDF**。
 
 本仓库只做一件事：让你在选题、调研、写开题报告时，能快速找到一个方向上有哪些代表性工作、它们分别解决什么问题、代码在哪里。
 
 ## 三条约定
 
-1. **按方向分**——每个研究方向一个独立目录，互不干扰，后续可继续增加新方向。
-2. **按年份分**——论文、综述、数据集都按年份建文件（如 `2026.md`），新内容追加到对应年份。
-3. **只存链接**——不提交 PDF 全文，只记录标题 + 官方链接 + 代码仓库。既避免版权问题，也保证大家拿到的永远是最新版。
+1. **只存链接**——不提交 PDF 全文，只记录标题 + 官方链接 + 代码仓库。既避免版权问题，也保证大家拿到的永远是最新版。
+2. **按任务细分**——每个方向下有若干任务（行为识别、姿态估计、重识别…），论文按任务归档。
+3. **按年份分文件**——每个任务目录内按年份建文件（如 `2026.md`），新论文追加到对应年份。
 
 ## 目录结构
 
@@ -17,41 +17,54 @@
 ├── README.md                  # 本文件：仓库总览与方向索引
 ├── CONTRIBUTING.md            # 添加内容的完整步骤（新同学先看这个）
 ├── templates/                 # 填写模板，复制后用
-│   ├── papers-year.md         #   年度论文清单
-│   ├── surveys-year.md        #   年度综述清单
-│   └── datasets-year.md       #   年度数据集清单
 ├── directions/                # 各研究方向
-│   ├── README.md              #   方向总索引
-│   ├── 01-ai-for-animals/
-│   ├── 02-multimodal-object-recognition/
-│   ├── 03-remote-sensing/
-│   └── 04-image-stitching/
+│   ├── README.md              #   方向总索引 + 收录判定规则
+│   ├── 01-ai-for-animals/     #   研究对象是动物
+│   └── 02-foundations/        #   可迁移的通用方法
 └── .github/                   # 协作自动化（PR/Issue 模板、链接检查）
 ```
 
-每个方向目录的内部结构完全一致：
+每个方向内部结构一致：
 
 ```text
-01-ai-for-animals/
-├── README.md      # 方向简介：研究范围、关键词、年度速览
-├── papers/        # 研究论文，按年份分文件：2026.md、2025.md ...
-├── surveys/       # 综述，同样按年份分文件
-└── datasets/      # 数据集，按发布年份分文件
+<方向>/
+├── README.md                 # 方向简介 + 完整任务清单 + 阅读顺序
+├── papers/<任务>/<年份>.md    # 论文
+├── surveys/<年份>.md          # 综述（放在方向层，通常横跨多个任务）
+└── datasets/<年份>.md         # 数据集
 ```
 
 ## 研究方向
 
-| 方向 | 关注点 | 论文 | 综述 | 数据集 |
-| --- | --- | --- | --- | --- |
-| [AI+动物](directions/01-ai-for-animals/) | 动物行为理解、姿态估计、视频动作识别 | [论文](directions/01-ai-for-animals/papers/) | [综述](directions/01-ai-for-animals/surveys/) | [数据集](directions/01-ai-for-animals/datasets/) |
-| [多模态目标识别](directions/02-multimodal-object-recognition/) | 视觉-语言预训练、开放词汇检测、跨模态对齐 | [论文](directions/02-multimodal-object-recognition/papers/) | [综述](directions/02-multimodal-object-recognition/surveys/) | [数据集](directions/02-multimodal-object-recognition/datasets/) |
-| [遥感图像识别](directions/03-remote-sensing/) | 遥感场景分类、目标检测、语义分割、变化检测 | [论文](directions/03-remote-sensing/papers/) | [综述](directions/03-remote-sensing/surveys/) | [数据集](directions/03-remote-sensing/datasets/) |
-| [图像拼接](directions/04-image-stitching/) | 图像配准、特征匹配、全景拼接、视频拼接 | [论文](directions/04-image-stitching/papers/) | [综述](directions/04-image-stitching/surveys/) | [数据集](directions/04-image-stitching/datasets/) |
+| 方向 | 定位 | 重点任务 |
+| --- | --- | --- |
+| [**01 AI+动物**](directions/01-ai-for-animals/) | 研究对象是动物 | 行为识别、姿态估计、个体重识别、种群调查、跟踪、声学 |
+| [**02 可迁移基础方法**](directions/02-foundations/) | 通用方法，可迁移到动物任务 | 动作识别、视觉-语言与多模态、目标检测、跟踪、重识别、分割、图像拼接 |
+
+### 怎么判断一篇论文该放哪边
+
+**看它的主实验跑在什么数据集上。**
+
+- 用 Animal Kingdom、AP-10K、LoTE-Animal 等**动物数据集** → [01-ai-for-animals](directions/01-ai-for-animals/)
+- 用 COCO、ImageNet、Kinetics、MOT17 等**通用基准** → [02-foundations](directions/02-foundations/)
+
+这条规则是刻意定成可机械执行的，避免「这篇算不算动物相关」的扯皮。两边都做的按主实验归一边，不重复收录。详见 [directions/README.md](directions/README.md)。
+
+## 当前收录情况
+
+| 方向 | 论文 | 综述 | 数据集 |
+| --- | --- | --- | --- |
+| 01 AI+动物 | — | 1 篇 | 3 个 |
+| 02 可迁移基础方法 | 12 篇 | 2 篇 | — |
+
+> 01 方向目前只有数据集和综述，**还没有动物专属的论文**。这是符合预期的起点——
+> 之前收的 C3D、SlowFast、TimeSformer、VideoMamba、CLIP、BIKE 等都是通用工作，
+> 已按判定规则归入 02。
 
 ## 怎么找资料
 
 - **刚入门一个方向**：先读该方向 `surveys/` 里最近两年的综述，建立整体认识。
-- **要跟最新进展**：直接看 `papers/` 里当年和前一年的文件。
+- **要跟最新进展**：直接看对应任务目录下当年和前一年的文件。
 - **要找数据做实验**：看 `datasets/`，每条都标注了规模、获取方式和 License。
 - **要复现代码**：论文表格的「代码」列直接给仓库地址。
 

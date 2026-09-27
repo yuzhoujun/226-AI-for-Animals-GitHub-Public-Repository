@@ -1,6 +1,17 @@
 # 论文
 
-按**发表年份**分文件：`2026.md`、`2025.md`……新论文追加到对应年份文件的表格末尾。
+按**任务**分子目录，每个任务目录内再按**发表年份**分文件：
+
+```text
+papers/
+├── action-recognition/
+│   ├── 2015.md
+│   └── 2024.md
+└── vision-language/
+    └── 2021.md
+```
+
+**任务目录有内容了才创建**，不要预先建空目录。任务清单见 [方向 README](../README.md#任务分类)。
 
 新建年份文件时，直接复制 [`templates/papers-year.md`](../../../templates/papers-year.md)。
 
