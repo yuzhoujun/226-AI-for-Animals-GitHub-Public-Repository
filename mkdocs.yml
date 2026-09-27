@@ -14,6 +14,11 @@ site_description: AI+动物方向的公开文献索引——论文、综述、�
 docs_dir: .site-src
 site_dir: site
 
+# 默认是 GitHub Pages 的地址。镜像到 226 服务器（挂在子路径下）时用环境变量覆盖：
+#   SITE_URL=https://<你的域名>/ai-animals/ mkdocs build --strict
+# 这个值决定站内绝对链接和 search 索引的前缀，部署在子路径下必须改，否则链接会指到根。
+site_url: !ENV [SITE_URL, "https://yuzhoujun.github.io/226-AI-for-Animals-GitHub-Public-Repository/"]
+
 # 站点右上角的「编辑此页」，以及 CONTRIBUTING 里指向 .github/ 的链接都靠它拼绝对地址
 repo_url: https://github.com/yuzhoujun/226-AI-for-Animals-GitHub-Public-Repository
 repo_name: yuzhoujun/226-AI-for-Animals

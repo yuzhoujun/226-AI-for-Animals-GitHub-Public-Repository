@@ -1,0 +1,67 @@
+# 226 服务器上挂阅读站点的 nginx 配置。
+#
+# 放到 /etc/nginx/conf.d/ai-animals.conf（或 sites-available 里再软链过去），
+# 改掉 server_name 和 root 下面那一行 DEPLOY_ROOT，然后：
+#
+#   nginx -t && systemctl reload nginx
+#
+# 注意 root 指向的是 deploy.sh 切出来的 current 软链接，不是具体某个版本目录——
+# 这样部署时切一下软链接就生效了，不用 reload nginx。
+
+server {
+    listen 80;
+    # 换成你们服务器的域名或公网 IP
+    server_name ai-animals.example.edu;
+
+    # 国内访问要走 https 的话，证书用 certbot 签一张：
+    #   certbot --nginx -d ai-animals.example.edu
+
+    # 挂在子路径下（比如 /ai-animals/）就在 location 里配；
+    # 挂在根目录下就直接 root 指过去。
+    #
+    # 挂子路径时，部署脚本的 SITE_URL 也带上同样的前缀：
+    #      SITE_URL=https://ai-animals.example.edu/ai-animals/ ./deploy.sh
+    # 站内导航用的是相对链接，所以前缀填错页面一般还能翻，但 canonical、
+    # sitemap 和搜索索引的基准路径会指错（搜索可能失效）。照这里配的填就对了。
+    location /ai-animals/ {
+        alias /srv/ai-animals-site/current/;
+        index index.html;
+
+        # 目录没找到就退回该目录的 index.html
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+
+    # 挂在根目录下的话用这段，并去掉上面的 location：
+    #
+    # location / {
+    #     root /srv/ai-animals-site/current;
+    #     index index.html;
+    #     try_files $uri $uri/ $uri/index.html =404;
+    # }
+
+    # 静态资源可以放心长缓存。站点是每次部署整体替换的，
+    # 文件名没变但内容可能变，所以 html 不缓存、带 hash 的资源才长缓存。
+    location ~* \.(css|js|woff2?|svg|png|jpg|ico)$ {
+        alias /srv/ai-animals-site/current/;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    location ~* \.html$ {
+        alias /srv/ai-animals-site/current/;
+        add_header Cache-Control "no-cache";
+    }
+
+    # mkdocs 的搜索索引会随内容变，别缓存
+    location = /ai-animals/search/search_index.json {
+        alias /srv/ai-animals-site/current/search/search_index.json;
+        add_header Cache-Control "no-cache";
+    }
+
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+    gzip_min_length 1024;
+
+    # 站点是公开资料，不需要认证。但要防止被当成文件托管乱传东西。
+    client_max_body_size 1m;
+}
