@@ -13,8 +13,12 @@ body:
         ⚠️ **只收「提出新方法」的论文。** 如果这篇工作的主要贡献是发布数据集，请改用「提交一个数据集」表单；
         既发数据集又提方法的，两个表单各提交一次（这是允许的，见贡献指南）。
 
-        ⚠️ **这里只能选已有的任务目录。** 想开一个新任务分类，先在 [Issue](https://github.com/yuzhoujun/226-AI-for-Animals-GitHub-Public-Repository/issues/new) 里跟维护者确认——
-        新任务目录还要配一份手写的任务说明，不适合自动生成。
+        📌 **下拉框里带「待建」的，是方向 README 里已经登记、但还没有论文的分类**
+        （比如 `cross-species`、`few-shot-long-tail`）。选它没问题——机器人会把任务目录
+        建出来，第一篇论文就是它的开张。
+
+        真正没登记过的任务才需要人来判断：那要先提 PR 往方向 README 的任务表里加一行，
+        见贡献指南的「新增一个任务」。
 
   - type: dropdown
     id: task
@@ -24,15 +28,28 @@ body:
         格式是「方向 / 任务目录名」。任务是按**主实验用的数据集**判断的：
         用动物数据集（Animal Kingdom、AP-10K 等）选 01，用通用基准（COCO、Kinetics 等）选 02。
       options:
+        # AUTO:TASKS:BEGIN 由 scripts/gen-forms.mjs 从各方向 README 的任务表生成，请勿手改
         - 01-ai-for-animals / behavior（行为识别与理解）
         - 01-ai-for-animals / pose-estimation（姿态估计）
         - 01-ai-for-animals / re-identification（个体重识别）
+        - 01-ai-for-animals / detection-counting（检测、计数与种群调查） — 待建
+        - 01-ai-for-animals / tracking（多目标跟踪） — 待建
+        - 01-ai-for-animals / face-identification（面部与个体识别） — 待建
+        - 01-ai-for-animals / bioacoustics（声学与多模态） — 待建
+        - 01-ai-for-animals / collective-behavior（群体行为与社会交互） — 待建
+        - 01-ai-for-animals / cross-species（跨物种泛化与域适应） — 待建
         - 02-foundations / action-recognition（动作与行为识别）
         - 02-foundations / vision-language（视觉-语言与多模态）
         - 02-foundations / object-detection（目标检测）
         - 02-foundations / segmentation（图像分割）
         - 02-foundations / world-models（世界模型）
         - 02-foundations / image-stitching（图像拼接）
+        - 02-foundations / multi-object-tracking（多目标跟踪） — 待建
+        - 02-foundations / re-identification（重识别） — 待建
+        - 02-foundations / pose-estimation（姿态估计） — 待建
+        - 02-foundations / few-shot-long-tail（小样本、长尾与自监督） — 待建
+        - 02-foundations / generative-augmentation（生成式数据增强） — 待建
+        # AUTO:TASKS:END
     validations:
       required: true
 

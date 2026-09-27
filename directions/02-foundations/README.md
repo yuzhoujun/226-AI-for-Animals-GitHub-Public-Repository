@@ -15,11 +15,11 @@
 
 | 任务 | 目录名 | 说明 | 状态 |
 | --- | --- | --- | --- |
-| 动作与行为识别 | `action-recognition` | 视频动作分类、时序建模 | [有内容](papers/action-recognition/) |
-| 视觉-语言与多模态 | `vision-language` | CLIP 一脉、开放词汇、跨模态对齐 | [有内容](papers/vision-language/) |
-| 目标检测 | `object-detection` | 含小目标、密集、开放词汇 | [有内容](papers/object-detection/) |
-| 图像分割 | `segmentation` | 含 SAM 一脉的开放词汇分割 | [有内容](papers/segmentation/) |
-| 世界模型 | `world-models` | 隐空间动态建模，对应行为预测 | [有内容](papers/world-models/) |
+| 动作与行为识别 | `action-recognition` | 视频动作分类、时序建模 | [9 篇](papers/action-recognition/) |
+| 视觉-语言与多模态 | `vision-language` | CLIP 一脉、开放词汇、跨模态对齐 | [3 篇](papers/vision-language/) |
+| 目标检测 | `object-detection` | 含小目标、密集、开放词汇 | [7 篇](papers/object-detection/) |
+| 图像分割 | `segmentation` | 含 SAM 一脉的开放词汇分割 | [6 篇](papers/segmentation/) |
+| 世界模型 | `world-models` | 隐空间动态建模，对应行为预测 | [5 篇](papers/world-models/) |
 | 图像拼接 | `image-stitching` | 配准、特征匹配、全景拼接 | [待补充](papers/image-stitching/) |
 | 多目标跟踪 | `multi-object-tracking` | MOT / 视频跟踪 | 待建 |
 | 重识别 | `re-identification` | 通用 Re-ID 方法（行人等） | 待建 |

@@ -21,7 +21,7 @@
 | --- | --- | --- | --- |
 | 行为识别与理解 | `behavior` | 细粒度行为、长时序行为分析，本方向的核心 | [6 篇](papers/behavior/) |
 | 姿态估计 | `pose-estimation` | 关键点检测、野外姿态 | [6 篇](papers/pose-estimation/) |
-| 个体重识别 | `re-identification` | 动物个体 ID，区别于通用行人 Re-ID | [4 篇](papers/re-identification/) |
+| 个体重识别 | `re-identification` | 动物个体 ID，区别于通用行人 Re-ID | [5 篇](papers/re-identification/) |
 | 检测、计数与种群调查 | `detection-counting` | 红外相机触发、野生动物普查 | 待建 |
 | 多目标跟踪 | `tracking` | 动物轨迹、群体移动 | 待建 |
 | 面部与个体识别 | `face-identification` | 区别于全身 Re-ID 的一条独立线 | 待建 |

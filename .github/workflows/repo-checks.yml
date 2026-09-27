@@ -21,6 +21,12 @@ jobs:
       - name: 校验统计块是否为最新
         run: node scripts/gen-index.mjs --check
 
+      # Issue 表单的任务下拉框也是生成的，来源同样是方向 README 的任务表。
+      # 以前是手抄的，而且只抄了「已经有目录的」——登记为「待建」的任务
+      # 在表单里根本选不到，想投第一篇的人无处可投。
+      - name: 校验任务下拉框是否为最新
+        run: node scripts/gen-forms.mjs --check
+
       # 指向不存在文件的相对链接（比如尚未创建的任务目录）
       - name: 校验仓库内相对链接
         run: node scripts/check-links.mjs

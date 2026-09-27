@@ -20,9 +20,14 @@
 // 先摆一个「暂无收录」）。
 //
 // 只统计「数据」表格，README 的叙述文字与阅读顺序不受影响。
+//
+// 唯一不靠标记的一处：方向 README「任务分类」表的**状态**列（第 4 格）。
+// 它是数出来的收录数，以前手写，烂过（写着 4 篇实际 5 篇，两个方向还各用
+// 一种写法），所以也改成生成的。只动那一格，同行其余三格原样保留。
 
 import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
+import { readDirection, taskSlugOf, setStatus } from "./lib/tasks.mjs";
 
 const ROOT = join(import.meta.dirname, "..");
 const CHECK = process.argv.includes("--check");
@@ -185,6 +190,41 @@ function blockIndex(files, unit) {
   return out.join("\n");
 }
 
+// ---------- 任务表的「状态」列 ----------
+//
+// 这一列也是生成的，虽然它不在 AUTO 标记里（它只是任务表四个格子中的一格，
+// 单独开一段标记会把好好的一张表切碎）。
+//
+// 以前是手写的，两个毛病都犯了：01 的 `re-identification` 写着「4 篇」实际有 5 篇；
+// 同一件事两个方向两种写法（「有内容」vs「6 篇」）。手抄一份能数出来的数字，
+// 迟早会对不上，所以改成数出来的。
+//
+// 目录没建就写「待建」，**不带链接**——指向不存在的目录会 404。
+
+function taskStatus(d, slug) {
+  const files = d.papers[slug];
+  if (!files) return "待建";
+  const n = files.reduce((k, f) => k + f.items.length, 0);
+  // 分了目录但还没放东西：那只是在等第一篇，和「还没建」不是一回事
+  return n ? `[${n} 篇](papers/${slug}/)` : `[待补充](papers/${slug}/)`;
+}
+
+function rewriteTaskStatus(abs, d) {
+  const rec = read(abs);
+  const out = rec.text
+    .split("\n")
+    .map((line) => {
+      const slug = taskSlugOf(line);
+      if (!slug || !(slug in d.taskLabels)) return line;
+      return setStatus(line, taskStatus(d, slug)) ?? line;
+    })
+    .join("\n");
+  if (out !== rec.text) {
+    rec.text = out;
+    rec.dirty = true;
+  }
+}
+
 // ---------- 写回 ----------
 
 const FILES = new Map(); // abs path -> { text, dirty }
@@ -233,26 +273,17 @@ for (const name of readdirSync(directionsDir, { withFileTypes: true })
   d.abs = abs;
   d.name = name;
 
-  // 从方向 README 的任务表里取中文名，供 COLLECTION 用
+  // 任务的登记处是方向 README 的「任务分类」表，见 scripts/lib/tasks.mjs
+  const reg = readDirection(abs);
   d.taskLabels = {};
-  d.taskOrder = []; // 按方向 README 任务表的出现顺序，即约定的阅读顺序
-  const readmeAbs = join(abs, "README.md");
-  if (existsSync(readmeAbs)) {
-    const text = readFileSync(readmeAbs, "utf8");
-    for (const line of text.split(/\r?\n/)) {
-      const m = line.match(/^\|\s*([^|]+?)\s*\|\s*`([a-z0-9-]+)`\s*\|/);
-      if (m) {
-        d.taskLabels[m[2]] = m[1];
-        d.taskOrder.push(m[2]);
-      }
-    }
-    // 显示名 = 目录序号 + README 的 H1，例如「01 AI+动物」
-    const h1 = text.match(/^#\s+(.+?)\s*$/m)?.[1];
-    const num = name.match(/^(\d+)-/)?.[1];
-    d.display = [num, h1 ?? name].filter(Boolean).join(" ");
-  } else {
-    d.display = name;
+  d.taskOrder = []; // 按任务表的出现顺序，即约定的阅读顺序
+  for (const t of reg.tasks) {
+    d.taskLabels[t.slug] = t.label;
+    d.taskOrder.push(t.slug);
   }
+  // 显示名 = 目录序号 + README 的 H1，例如「01 AI+动物」
+  const num = name.match(/^(\d+)-/)?.[1];
+  d.display = reg.title ? [num, reg.title].filter(Boolean).join(" ") : name;
   dirs[name] = d;
 }
 
@@ -261,6 +292,7 @@ inject(rootReadme, "OVERVIEW", blockOverview(dirs));
 
 for (const d of Object.values(dirs)) {
   inject(join(d.abs, "README.md"), "COLLECTION", blockCollection(d, ""));
+  rewriteTaskStatus(join(d.abs, "README.md"), d);
 
   // papers/ 下的每个任务、以及 datasets/ 和 surveys/，各自合并成一张总表。
   // papers/README.md 本身不加：它下面还有任务子目录，那些页面已经各有一张

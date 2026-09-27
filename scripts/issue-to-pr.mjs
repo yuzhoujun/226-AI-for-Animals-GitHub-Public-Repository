@@ -10,7 +10,12 @@
 //
 // 设计原则：**只做追加，不碰手写内容。** 这个脚本只会在表格末尾加一行，
 // 以及在年份文件不存在时新建一个只有表头和表头行的文件。
-// 任务说明那种需要人写的正文，它一律不生成——所以新任务目录不在支持范围内。
+// 任务说明那种需要人写的正文，它一律不生成。
+//
+// 它能建任务目录，但只建**已登记**的：方向 README 的任务表里写了行、状态是「待建」
+// 的那些，投第一篇论文时顺手把目录和任务页骨架带出来。任务页里的说明留成 TODO，
+// 等人补——脚本绝不编一段像模像样的研究范围，那比空着更坏，因为没人会再去改它。
+// 表里压根没有的任务不建：要不要新开一个分类是判断题，得人来。
 //
 // 任何一步不对就停下来，写好 .issue-error.md 让 workflow 回帖说明，
 // 不产生半个 PR。宁可让人改一次 Issue，也不要开一个坏 PR。
@@ -18,6 +23,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, appendFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join, dirname } from "node:path";
+import { readDirection } from "./lib/tasks.mjs";
 
 const ROOT = join(import.meta.dirname, "..");
 const BODY = process.env.ISSUE_BODY ?? "";
@@ -85,15 +91,12 @@ function directionTitle(dir) {
   return m ? m[1].trim() : dir;
 }
 
-/** 从方向 README 的任务表里取「目录名 → 中文名」 */
+/** 方向 README 的任务表：任务的登记处，见 scripts/lib/tasks.mjs */
+const registry = (dir) => readDirection(join(ROOT, "directions", dir));
+
+/** 从任务表里取「目录名 → 中文名」，没登记过就退回目录名本身 */
 function taskTitle(dir, task) {
-  const p = join(ROOT, "directions", dir, "README.md");
-  if (!existsSync(p)) return task;
-  for (const line of readFileSync(p, "utf8").split("\n")) {
-    const m = line.match(/^\|\s*([^|]+?)\s*\|\s*`([^`]+)`\s*\|/);
-    if (m && m[2].trim() === task) return m[1].trim();
-  }
-  return task;
+  return registry(dir).tasks.find((t) => t.slug === task)?.label ?? task;
 }
 
 // ---------- 校验 ----------
@@ -178,18 +181,27 @@ if (type === "paper") {
   const m = raw.match(/^(\S+)\s*\/\s*([^\s（(]+)/);
   const dir = m ? m[1] : "";
   const task = m ? m[2] : "";
+  const built = dir && task && existsSync(join(ROOT, "directions", dir, "papers", task));
+  // 目录还没建，但任务表里已经登记过（状态「待建」）——这是第一篇，
+  // 允许，稍后连目录和任务页一起建出来
+  const registered = dir ? registry(dir).tasks.some((t) => t.slug === task) : false;
+
   if (!dir || !task) {
     fail("**放在哪个任务下** 没选。请从下拉框里选一项。");
-  } else if (!existsSync(join(ROOT, "directions", dir, "papers", task))) {
+  } else if (!built && !registered) {
     fail(
-      `找不到任务目录 \`directions/${dir}/papers/${task}\`。新任务目录需要先由维护者创建` +
-        `（要配一份手写的任务说明），请改成已有的任务，或先开 Issue 讨论。`
+      `任务表里没有 \`${task}\` 这个任务（\`directions/${dir}/README.md\` 的「任务分类」表）。\n\n` +
+        `新开一个任务分类是**判断题**——它和相邻任务的边界在哪、会不会切得太碎——` +
+        `所以不能自动建。请先提一个 PR 往那张表里加一行：\n\n` +
+        `\`| 中文名 | ${task} | 一句话说明 | 待建 |\`\n\n` +
+        `合了之后再用这个表单投，机器人就会把目录建出来。`
     );
   }
   entry = {
     kind: "paper",
     dir,
     task,
+    newTask: !built,
     dirPath: join("directions", dir, "papers", task),
     year: pick(fields, "发表年份"),
     title: checkTableCell(pick(fields, "论文完整标题"), "论文完整标题", 200),
@@ -303,9 +315,32 @@ const row =
     ? `| [${entry.title}](${entry.link}) | ${entry.scale} | ${entry.access} | ${entry.license} |`
     : `| [${entry.title}](${entry.link}) | ${entry.venue} | ${codeCell} | ${entry.desc} |`;
 
+/**
+ * 新任务的任务页骨架。
+ *
+ * 只给**结构**：标题、收录表、一块写明「说明还没写」的提示。
+ * 「研究范围」「建议阅读顺序」这种要读过文献才写得出的正文，脚本一律不编——
+ * 硬凑一段像模像样的说明比空着更坏，因为看起来像人写的，就没人会再去改它。
+ */
+function taskReadme(label) {
+  return (
+    `# ${label}\n\n` +
+    `> 🚧 **这一页是新建任务时自动生成的，说明还没写。**\n` +
+    `>\n` +
+    `> 请维护者补上：这个任务收什么、不收什么（和相邻任务怎么区分）、建议的阅读顺序。\n` +
+    `> 写法可以参照同方向其他任务的 README。\n\n` +
+    `## 本任务收录\n\n` +
+    `<!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->\n` +
+    `（暂无收录）\n` +
+    `<!-- AUTO:INDEX:END -->\n`
+  );
+}
+
 const dTitle = directionTitle(entry.dir);
 const file = join(ROOT, entry.dirPath, `${entry.year}.md`);
 const exists = existsSync(file);
+// 连目录都还没有 = 这是这个任务的第一篇，等下要把任务页一起建出来
+const firstOfTask = entry.kind === "paper" && !existsSync(join(ROOT, entry.dirPath));
 
 if (exists) {
   const cur = readFileSync(file, "utf8");
@@ -328,6 +363,10 @@ if (exists) {
   writeFileSync(file, header + row + "\n");
 }
 
+if (firstOfTask) {
+  writeFileSync(join(ROOT, entry.dirPath, "README.md"), taskReadme(taskTitle(entry.dir, entry.task)));
+}
+
 const relPath = file.replace(ROOT, "").replace(/^[\\/]/, "").replace(/\\/g, "/");
 
 // ---------- 自检 ----------
@@ -341,13 +380,28 @@ function run(cmd, args) {
   }
 }
 
-const gen = run("node", ["scripts/gen-index.mjs"]);
-if (!gen.ok) {
-  problems.push(`写入后重新生成统计块失败：\n\n\`\`\`\n${gen.out}\n\`\`\``);
-} else {
-  const stale = run("node", ["scripts/gen-index.mjs", "--check"]);
+// 两个生成器都得重跑。任务下拉框也算在内：投的是「待建」任务的话，
+// 目录一建出来，下拉框里那个「— 待建」就该摘掉了——不重跑，CI 会红。
+const REGEN = [
+  ["scripts/gen-index.mjs", "统计块"],
+  ["scripts/gen-forms.mjs", "任务下拉框"],
+];
+
+let regenFailed = false;
+for (const [script, what] of REGEN) {
+  const r = run("node", [script]);
+  if (!r.ok) {
+    regenFailed = true;
+    problems.push(`写入后重新生成${what}失败：\n\n\`\`\`\n${r.out}\n\`\`\``);
+  }
+}
+
+if (!regenFailed) {
+  for (const [script, what] of REGEN) {
+    const r = run("node", [script, "--check"]);
+    if (!r.ok) problems.push(`${what}校验没过：\n\n\`\`\`\n${r.out}\n\`\`\``);
+  }
   const link = run("node", ["scripts/check-links.mjs"]);
-  if (!stale.ok) problems.push(`统计块校验没过：\n\n\`\`\`\n${stale.out}\n\`\`\``);
   if (!link.ok) problems.push(`链接检查没过：\n\n\`\`\`\n${link.out}\n\`\`\``);
 }
 
@@ -356,10 +410,12 @@ if (problems.length) bail();
 // ---------- 输出 ----------
 
 const kindLabel = TYPE_NAME[entry.kind];
+const taskPath = entry.dirPath.replace(/\\/g, "/");
 const summary =
-  entry.kind === "dataset"
+  (entry.kind === "dataset"
     ? `向 \`${relPath}\` 追加了数据集 **${entry.title}**（${entry.year}）`
-    : `向 \`${relPath}\` 追加了${kindLabel} **${entry.title}**（${entry.venue}）`;
+    : `向 \`${relPath}\` 追加了${kindLabel} **${entry.title}**（${entry.venue}）`) +
+  (firstOfTask ? `，并新建了任务目录 \`${taskPath}\`` : "");
 
 writeFileSync(
   join(ROOT, ".issue-pr-body.md"),
@@ -377,6 +433,10 @@ writeFileSync(
       .map(([k, v]) => `| ${k} | ${v} |`)
       .join("\n") +
     `\n\n---\n\n**审核要点**\n\n` +
+    (firstOfTask
+      ? `- [ ] **这是新任务的第一篇**：\`${taskPath}/README.md\` 是自动生成的骨架，` +
+        `上面只有收录表，「研究范围 / 建议阅读顺序」还是 TODO，请补上\n`
+      : ``) +
     `- [ ] 链接能打开，且不是 PDF 直链\n` +
     `- [ ] 年份用的是**正式发表年**（不是 arXiv 上传年）\n` +
     `- [ ] 归类正确：按**主实验用的数据集**判断（动物数据集 → 01，通用基准 → 02）\n` +
