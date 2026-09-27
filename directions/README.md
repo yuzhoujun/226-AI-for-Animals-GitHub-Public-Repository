@@ -40,4 +40,4 @@
 先开 [Issue](../.github/ISSUE_TEMPLATE/new-direction.yml) 讨论，确认后再建目录。
 **新方向取下一个可用编号**（当前是 `03`），不要插空号或重排已有编号——重排会让所有人的本地分支和已有链接全部失效。
 
-步骤见 [CONTRIBUTING.md](../CONTRIBUTING.md#新增一个研究方向)。
+步骤见 [CONTRIBUTING.md](../CONTRIBUTING.md#新增一个研究方向整个大方向)。

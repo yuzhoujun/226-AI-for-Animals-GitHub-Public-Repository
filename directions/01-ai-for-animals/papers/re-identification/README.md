@@ -41,8 +41,8 @@
 | 年份 | 文件 |
 | --- | --- |
 | 2026 | [1 篇](2026.md) — Cross-Species Animal Re-Identification with Semantic Consistency Learning |
-| 2024 | [2 篇](2024.md) — OpenAnimals: Revisiting Person Re-Identification for Animals Towards Better Generalization、WildFusion: Individual Animal Identification with Calibrated Similarity Fusion |
-| 2023 | [1 篇](2023.md) — WildlifeDatasets: An open-source toolkit for animal re-identification |
+| 2025 | [1 篇](2025.md) — OpenAnimals: Revisiting Person Re-Identification for Animals Towards Better Generalization |
+| 2024 | [2 篇](2024.md) — WildFusion: Individual Animal Identification with Calibrated Similarity Fusion、WildlifeDatasets: An open-source toolkit for animal re-identification |
 | 2020 | [1 篇](2020.md) — Similarity Learning Networks for Animal Individual Re-Identification — Beyond the Capabilities of Human Observers |
 <!-- AUTO:YEARS:END -->
 

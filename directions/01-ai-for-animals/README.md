@@ -10,7 +10,8 @@
 > 📌 **数据集与方法可以双收**：一篇工作如果**既发布了数据集、又提出了具体的方法模型**，
 > `datasets/` 和 `papers/<任务>/` 各收一条，两条互相链一下即可。
 > 只有数据集、没有方法贡献的（纯 benchmark），只收 `datasets/`。
-> 目前双收的有：WildlifeDatasets（数据集在 [2023](datasets/2023.md)，方法 MegaDescriptor 在 [re-identification](papers/re-identification/2023.md)）。
+> 目前双收的有：WildlifeDatasets（数据集在 [datasets/2023](datasets/2023.md)，方法 MegaDescriptor 在 [re-identification/2024](papers/re-identification/2024.md)）。
+> 两边年份不一样是正常的——**数据集按发布年归档，论文按正式发表年归档**（这篇 arXiv 2023、WACV 2024）。
 
 ## 任务分类
 
@@ -39,14 +40,14 @@
 | --- | --- |
 | [行为识别与理解](papers/behavior/) | [2021](papers/behavior/2021.md) · [2024](papers/behavior/2024.md) · [2025](papers/behavior/2025.md) · [2026](papers/behavior/2026.md) |
 | [姿态估计](papers/pose-estimation/) | [2019](papers/pose-estimation/2019.md) · [2023](papers/pose-estimation/2023.md) · [2025](papers/pose-estimation/2025.md) |
-| [个体重识别](papers/re-identification/) | [2020](papers/re-identification/2020.md) · [2023](papers/re-identification/2023.md) · [2024](papers/re-identification/2024.md) · [2026](papers/re-identification/2026.md) |
+| [个体重识别](papers/re-identification/) | [2020](papers/re-identification/2020.md) · [2024](papers/re-identification/2024.md) · [2025](papers/re-identification/2025.md) · [2026](papers/re-identification/2026.md) |
 
 **综述**（4 篇）
 
 | 年份 | 条目 |
 | --- | --- |
-| 2024 | [2 篇](surveys/2024.md) — Towards Multi-Modal Animal Pose Estimation: A Survey and In-Depth Analysis、Computer Vision for Primate Behavior Analysis in the Wild |
-| 2025 | [2 篇](surveys/2025.md) — Animal behavior analysis methods using deep learning: a survey、A Review on Coarse to Fine-Grained Animal Action Recognition |
+| 2024 | [1 篇](surveys/2024.md) — Towards Multi-Modal Animal Pose Estimation: A Survey and In-Depth Analysis |
+| 2025 | [3 篇](surveys/2025.md) — Animal behavior analysis methods using deep learning: a survey、A Review on Coarse to Fine-Grained Animal Action Recognition、Computer Vision for Primate Behavior Analysis in the Wild |
 
 **数据集**（12 个）
 
