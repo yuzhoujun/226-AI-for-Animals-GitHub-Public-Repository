@@ -6,6 +6,11 @@
 > 用 COCO / ImageNet / Kinetics / MOT17 等通用基准的 → 收到隔壁 [02-foundations](../02-foundations/)。
 >
 > 这条规则是为了避免「这篇算不算动物相关」的扯皮。拿不准就按数据集判断。
+>
+> 📌 **数据集与方法可以双收**：一篇工作如果**既发布了数据集、又提出了具体的方法模型**，
+> `datasets/` 和 `papers/<任务>/` 各收一条，两条互相链一下即可。
+> 只有数据集、没有方法贡献的（纯 benchmark），只收 `datasets/`。
+> 目前双收的有：WildlifeDatasets（数据集在 [2023](datasets/2023.md)，方法 MegaDescriptor 在 [re-identification](papers/re-identification/2023.md)）。
 
 ## 任务分类
 
@@ -28,13 +33,13 @@
 ## 已收录内容
 
 <!-- AUTO:COLLECTION:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-**论文**（16 篇）
+**论文**（17 篇）
 
 | 任务 | 年份 |
 | --- | --- |
 | [行为识别与理解](papers/behavior/) | [2021](papers/behavior/2021.md) · [2024](papers/behavior/2024.md) · [2025](papers/behavior/2025.md) · [2026](papers/behavior/2026.md) |
 | [姿态估计](papers/pose-estimation/) | [2019](papers/pose-estimation/2019.md) · [2023](papers/pose-estimation/2023.md) · [2025](papers/pose-estimation/2025.md) |
-| [个体重识别](papers/re-identification/) | [2020](papers/re-identification/2020.md) · [2024](papers/re-identification/2024.md) · [2026](papers/re-identification/2026.md) |
+| [个体重识别](papers/re-identification/) | [2020](papers/re-identification/2020.md) · [2023](papers/re-identification/2023.md) · [2024](papers/re-identification/2024.md) · [2026](papers/re-identification/2026.md) |
 
 **综述**（4 篇）
 
