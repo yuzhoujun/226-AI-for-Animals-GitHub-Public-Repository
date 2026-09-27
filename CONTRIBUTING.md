@@ -146,9 +146,11 @@ git push origin add-your-topic
 | [论文完整标题](https://arxiv.org/abs/2501.01234) | CVPR 2026 | [代码](https://github.com/xxx/yyy) | 提出了 XXX 方法，在 YYY 任务上把 ZZZ 指标提升了 N 个点。 |
 ```
 
-**第 6 步：回到方向 `README.md`，在「已收录内容」表里补上链接。**
+**第 6 步：提 PR。**
 
-**第 7 步：提 PR。**
+各级 README 的收录表都是脚本从年份文件生成的，**不用手动去别处补链接**。
+唯一要动的是新建了任务目录的情况——回方向 `README.md` 的「任务分类」表补一行。
+那张表是手写的，脚本靠它读任务的中文名和排列顺序。
 
 ---
 
@@ -225,7 +227,12 @@ directions/05-video-generation/
 └── datasets/
 ```
 
-三个子目录各放一份 README.md 说明用途（直接复制现有方向里的，改掉方向名）。然后在 `directions/README.md` 和根 `README.md` 的方向索引表里各加一行。
+`datasets/` 和 `surveys/` 各放一份 README.md 说明用途：直接复制现有方向里的，改掉方向名，
+并留出 `<!-- AUTO:INDEX:BEGIN -->` 和 `<!-- AUTO:INDEX:END -->` 两个标记，收录表由脚本填。
+`papers/` **不用**放——它下面是任务子目录，每个任务自己的 README 就是那一页的说明。
+
+然后在 `directions/README.md` 的方向索引表里加一行（那张表是手写的）。
+根 `README.md` 的总览表**不用管**，它由脚本生成。
 
 ---
 
