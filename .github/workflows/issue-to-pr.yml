@@ -68,17 +68,19 @@ jobs:
           labels: 待审核
           delete-branch: true
 
-      # 用 GITHUB_TOKEN 做的事不会再触发别的 workflow（GitHub 防止事件递归），
-      # 所以机器人开的这个 PR 上，那些 `on: pull_request` 的检查**一次都不会启动**。
-      # 分支保护一旦把它们设成必需，PR 就会永远停在
-      # 「Expected — Waiting for status to be reported」，按钮灰着合不了。
+      # 机器人开的 PR 上，三个检查**全靠这一步点火**。
       #
-      # workflow_dispatch 是那条规则明确列出的例外，所以这里自己点一次火。
-      # 触发的运行 checkout 的就是 issue-<编号> 这个分支，head SHA 和 PR 一致，
-      # 检查结果会挂到 PR 上。
+      # 为什么不在 PR 上自动跑：用 GITHUB_TOKEN 开的 PR，GitHub 会把
+      # `on: pull_request` 的运行扣下来等人批（PR 上显示成「N workflows awaiting
+      # approval」黄条）。批不批都不产生检查结果，白让人以为漏跑了。
+      # 所以那三个 workflow 的 pull_request 触发器都用 branches-ignore 排除了
+      # issue-* 分支——运行压根不生成，黄条也就不出现。代价是得自己点。
       #
-      # 只点这两个：链接检查里两个有用的步骤分别限定 event_name 是 pull_request
-      # 和 schedule，dispatch 起来的运行会把它们跳过，点了也白点——外链由每周那次兜底。
+      # workflow_dispatch 不受那条扣留规则影响，触发的运行 checkout 的就是
+      # issue-<编号> 分支，head SHA 和 PR 一致，检查结果照样挂在 PR 上。
+      #
+      # 链接检查要带上 PR 编号：它的 pull_request 触发器也被排除了，
+      # 编号只能从这里递过去，否则结果贴不回 PR。
       #
       # 这一步红了说明没点着（PR 已经开出来了，但检查不会跑）。去 Actions 页面
       # 手动 Run workflow 选对应分支即可；反复出问题的话，改用 PAT 开 PR 是正解。
@@ -88,7 +90,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           branch="issue-${{ github.event.issue.number }}"
+          pr="${{ steps.cpr.outputs.pull-request-number }}"
           for wf in repo-checks.yml markdown-lint.yml; do
             echo "触发 $wf @ $branch"
             gh workflow run "$wf" --ref "$branch"
           done
+          echo "触发 link-check.yml @ $branch（pr=$pr，结果贴回 PR）"
+          gh workflow run link-check.yml --ref "$branch" -f pr="$pr"

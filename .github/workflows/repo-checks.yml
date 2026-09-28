@@ -4,6 +4,17 @@ on:
   push:
     branches: [main]
   pull_request:
+    # 机器人开的 PR 分支是 issue-<编号>，由 issue-to-pr.yml 开完 PR 自己点火跑，
+    # 见那边的注释。这里排除掉，GitHub 就**不会创建**「等待批准」的那种运行，
+    # PR 上那条「N workflows awaiting approval」黄条也就不会再出现了。
+    #
+    # 用分支名而不是别的条件，是因为扣留发生在运行创建之前——job 级的 if
+    # 拦不住它，只有让运行压根不生成。
+    #
+    # 副作用：人工分支也不能叫 issue- 开头，否则检查不会被触发（分支保护会把它
+    # 拦在「Expected — waiting」）。CONTRIBUTING 里写明了这条。
+    branches-ignore:
+      - "issue-*"
   workflow_dispatch:
 
 jobs:

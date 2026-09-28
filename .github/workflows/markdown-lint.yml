@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   pull_request:
+    # 同 repo-checks.yml：机器人开的 PR 分支不在这里触发，改由机器人自己点火。
+    # 这样 GitHub 不会创建「等待批准」的运行，PR 上不会出现「awaiting approval」黄条。
+    branches-ignore:
+      - "issue-*"
   workflow_dispatch:
 
 jobs:

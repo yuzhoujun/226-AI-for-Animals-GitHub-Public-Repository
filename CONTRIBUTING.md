@@ -85,6 +85,10 @@ git push origin add-remote-sensing-2026
 
 **请不要直接往 `main` 推。** 一律开分支 + 提 PR，这样其他人有机会看一眼，链接检查的 CI 也会先跑一遍。
 
+> 分支名**不要以 `issue-` 开头**（`add-xxx`、`fix-xxx` 这种就行）。那个前缀留给机器人：
+> 它给 Issue 表单生成的分支叫 `issue-<编号>`，这些分支在 CI 里被单独排除掉了，
+> 你用了同名开头的话检查不会触发，PR 会被分支保护拦在「Expected — waiting」。
+
 ```bash
 git checkout main && git pull
 git checkout -b add-your-topic
