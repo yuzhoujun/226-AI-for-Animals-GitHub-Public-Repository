@@ -450,6 +450,10 @@ writeFileSync(
 );
 
 writeOut("ok", "true");
-writeOut("title", `添加：${entry.year} ${entry.title}`);
+// PR 标题（同时也是这个 commit 的 message）带上类型和方向：
+//   `添加：2024 论文 VideoPrism 02-foundations`
+// 维护者扫 PR 列表时一眼能看出是哪一类、归到哪个方向，不用点进去。
+// 方向取目录名（01-ai-for-animals / 02-foundations），和仓库结构一致。
+writeOut("title", `添加：${entry.year} ${TYPE_NAME[entry.kind]} ${entry.title} ${entry.dir}`);
 writeOut("summary", summary.replace(/\n/g, " "));
 console.log(summary);
