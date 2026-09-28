@@ -8,6 +8,10 @@ on:
 
 jobs:
   checks:
+    # name 决定这条检查在 PR 上叫什么，也是分支保护里能勾到的名字。
+    # 不写的话显示成 job id「checks」——和 workflow 名对不上，你去勾的时候
+    # 会在列表里找不到「仓库一致性检查」。
+    name: 仓库一致性检查
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

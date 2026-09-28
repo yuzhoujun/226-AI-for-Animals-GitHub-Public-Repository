@@ -12,6 +12,8 @@ on:
 
 jobs:
   link-check:
+    # 同上：让检查名和 workflow 名一致
+    name: 链接检查
     runs-on: ubuntu-latest
     permissions:
       contents: read
