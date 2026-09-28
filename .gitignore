@@ -40,3 +40,9 @@ node_modules/
 .site-src/
 site/
 .cache/
+
+# 机器人处理 Issue 表单时的草稿（PR 正文 / 报错回帖），每次运行重新生成。
+# 不挡的话 create-pull-request 会把它们跟着条目一起提交进 PR 分支——
+# 于是每个机器人 PR 都带一份，两个 PR 一起合就必然在这个文件上冲突。
+.issue-pr-body.md
+.issue-error.md
