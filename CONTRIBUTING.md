@@ -290,7 +290,7 @@ git push origin add-your-topic
 **目录名用英文小写 + 连字符**，例如 `03-video-generation`。方向的中文名写在 README 标题里。
 
 ```text
-directions/05-video-generation/
+directions/03-video-generation/
 ├── README.md      # 标题写「视频生成」，见其他方向 README 的格式
 ├── papers/
 ├── surveys/

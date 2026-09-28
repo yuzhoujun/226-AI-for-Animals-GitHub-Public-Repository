@@ -18,7 +18,7 @@ body:
     attributes:
       label: 方向名称
       description: 中文名 + 建议的英文目录名（英文小写 + 连字符）
-      placeholder: 视频生成 / 05-video-generation
+      placeholder: 视频生成 / 03-video-generation
     validations:
       required: true
 
