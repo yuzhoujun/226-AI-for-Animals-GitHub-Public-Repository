@@ -60,6 +60,7 @@ nav:
           - "论文":
               - "动作与行为识别":
                   - directions/02-foundations/papers/action-recognition/index.md
+                  - "2025": directions/02-foundations/papers/action-recognition/2025.md
                   - "2024": directions/02-foundations/papers/action-recognition/2024.md
                   - "2022": directions/02-foundations/papers/action-recognition/2022.md
                   - "2021": directions/02-foundations/papers/action-recognition/2021.md
