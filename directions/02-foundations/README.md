@@ -15,7 +15,7 @@
 
 | 任务 | 目录名 | 说明 | 状态 |
 | --- | --- | --- | --- |
-| 动作与行为识别 | `action-recognition` | 视频动作分类、时序建模 | [10 篇](papers/action-recognition/) |
+| 动作与行为识别 | `action-recognition` | 视频动作分类、时序建模 | [11 篇](papers/action-recognition/) |
 | 视觉-语言与多模态 | `vision-language` | CLIP 一脉、开放词汇、跨模态对齐 | [3 篇](papers/vision-language/) |
 | 目标检测 | `object-detection` | 含小目标、密集、开放词汇 | [7 篇](papers/object-detection/) |
 | 图像分割 | `segmentation` | 含 SAM 一脉的开放词汇分割 | [6 篇](papers/segmentation/) |
@@ -32,7 +32,7 @@
 ## 已收录内容
 
 <!-- AUTO:COLLECTION:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-**论文**（31 篇）
+**论文**（32 篇）
 
 | 任务 | 年份 |
 | --- | --- |
