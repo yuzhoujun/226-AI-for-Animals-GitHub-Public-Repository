@@ -60,7 +60,7 @@
 <!-- AUTO:OVERVIEW:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
 | 方向 | 论文 | 综述 | 数据集 |
 | --- | --- | --- | --- |
-| [01 AI+动物](directions/01-ai-for-animals/) | 17 篇 | 4 篇 | 13 个 |
+| [01 AI+动物](directions/01-ai-for-animals/) | 18 篇 | 4 篇 | 13 个 |
 | [02 可迁移基础方法](directions/02-foundations/) | 32 篇 | 2 篇 | — |
 <!-- AUTO:OVERVIEW:END -->
 
