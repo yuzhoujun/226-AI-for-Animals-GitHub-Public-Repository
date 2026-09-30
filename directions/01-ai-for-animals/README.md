@@ -49,7 +49,7 @@
 | 2024 | [1 篇](surveys/2024.md) — Towards Multi-Modal Animal Pose Estimation: A Survey and In-Depth Analysis |
 | 2025 | [3 篇](surveys/2025.md) — Animal behavior analysis methods using deep learning: a survey、A Review on Coarse to Fine-Grained Animal Action Recognition、Computer Vision for Primate Behavior Analysis in the Wild |
 
-**数据集**（12 个）
+**数据集**（13 个）
 
 | 年份 | 条目 |
 | --- | --- |
@@ -58,6 +58,7 @@
 | 2023 | [5 个](datasets/2023.md) — LoTE-Animal、APTv2、Animal3D、ChimpACT、WildlifeDatasets |
 | 2024 | [3 个](datasets/2024.md) — PanAf20K、WildlifeReID-10k、Multispecies Animal Re-ID |
 | 2025 | [1 个](datasets/2025.md) — MammAlps |
+| 2026 | [1 个](datasets/2026.md) — MammalMotion |
 <!-- AUTO:COLLECTION:END -->
 
 > 📌 **本方向的一个显著特点：数据集论文占比很高。** 上面 12 个数据集里，至少有 5 个同时发表在

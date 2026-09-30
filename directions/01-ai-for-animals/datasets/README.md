@@ -12,10 +12,11 @@ License 一栏从官方页面照抄，不要自己推断；找不到就写「未
 ## 本方向收录
 
 <!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-共 12 个。
+共 13 个。
 
 | 年份 | 数据集 | 规模 | 获取方式 | License |
 | --- | --- | --- | --- | --- |
+| [2026](2026.md) | [MammalMotion](https://motion-forecasting.github.io/) | 项目页描述为超过 300 小时野外动物视频；正式发布后应以数据集页面最终统计为准。 | [获取入口](https://motion-forecasting.github.io/)，未公开（仅论文描述） | 未明确 |
 | [2025](2025.md) | [MammAlps](https://arxiv.org/abs/2503.18223) | 瑞士国家公园 9 台红外相机 / 14 小时以上带音频视频 / 8.5 小时逐个体轨迹标注 / 6,135 段单动物片段，含物种与行为标签 | [官方仓库](https://github.com/eceo-epfl/MammAlps) | 见官方仓库 |
 | [2024](2024.md) | [PanAf20K](https://arxiv.org/abs/2401.13554) | 约 20,000 段红外相机视频 / 超 700 万帧 / 非洲多国野外站点（arXiv 版 14 个，IJCV 正式版 18 个）/ 黑猩猩与山地大猩猩的检测与行为标注 | 见论文页面 | 见论文页面 |
 | [2024](2024.md) | [WildlifeReID-10k](https://arxiv.org/abs/2406.09211) | 10,000+ 个个体 / 约 33 个物种 / 140,000+ 张图（从 37 个已有数据集重采样）/ 含时间与相似度感知的划分协议 | 见论文页面的 Kaggle 入口，公开下载 | 见 Kaggle 页面 |
