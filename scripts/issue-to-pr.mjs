@@ -423,7 +423,14 @@ const summary =
 
 writeFileSync(
   join(ROOT, ".issue-pr-body.md"),
-  `由 Issue #${NUMBER} 自动生成。\n\n${summary}\n\n` +
+  // `Closes #N` 必须是**正文第一行**。
+  //
+  // 原来放在最末尾（紧跟「审核要点」那个任务列表），GitHub 不认，合并后
+  // Issue 不会自动关——PR #14 合了但 Issue #4 还开着，就是这么来的。
+  // 找了一批真的自动关掉了 Issue 的 PR 做对照，不管是人还是机器人开的，
+  // 关键字无一例外都在首行。放哪儿理论上都该管用（GitHub 文档说扫全文），
+  // 实测不是，那就照着能用的写法来。
+  `Closes #${NUMBER}\n\n由 Issue #${NUMBER} 自动生成。\n\n${summary}\n\n` +
     `| 字段 | 值 |\n| --- | --- |\n` +
     Object.entries({
       标题: entry.title,
@@ -445,8 +452,7 @@ writeFileSync(
     `- [ ] 年份用的是**正式发表年**（不是 arXiv 上传年）\n` +
     `- [ ] 归类正确：按**主实验用的数据集**判断（动物数据集 → 01，通用基准 → 02）\n` +
     `- [ ] 「${entry.kind === "paper" ? "一句话贡献" : entry.kind === "survey" ? "覆盖范围" : "规模"}」是自己读过的总结，不是复制的摘要\n` +
-    (entry.kind === "dataset" ? `- [ ] License 是从官方页面抄的，不是推断的\n` : ``) +
-    `\nCloses #${NUMBER}\n`
+    (entry.kind === "dataset" ? `- [ ] License 是从官方页面抄的，不是推断的\n` : ``)
 );
 
 writeOut("ok", "true");
