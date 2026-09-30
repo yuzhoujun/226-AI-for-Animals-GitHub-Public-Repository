@@ -15,7 +15,7 @@
 
 | 任务 | 目录名 | 说明 | 状态 |
 | --- | --- | --- | --- |
-| 动作与行为识别 | `action-recognition` | 视频动作分类、时序建模 | [9 篇](papers/action-recognition/) |
+| 动作与行为识别 | `action-recognition` | 视频动作分类、时序建模 | [10 篇](papers/action-recognition/) |
 | 视觉-语言与多模态 | `vision-language` | CLIP 一脉、开放词汇、跨模态对齐 | [3 篇](papers/vision-language/) |
 | 目标检测 | `object-detection` | 含小目标、密集、开放词汇 | [7 篇](papers/object-detection/) |
 | 图像分割 | `segmentation` | 含 SAM 一脉的开放词汇分割 | [6 篇](papers/segmentation/) |
@@ -32,11 +32,11 @@
 ## 已收录内容
 
 <!-- AUTO:COLLECTION:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-**论文**（30 篇）
+**论文**（31 篇）
 
 | 任务 | 年份 |
 | --- | --- |
-| [动作与行为识别](papers/action-recognition/) | [2015](papers/action-recognition/2015.md) · [2019](papers/action-recognition/2019.md) · [2020](papers/action-recognition/2020.md) · [2021](papers/action-recognition/2021.md) · [2022](papers/action-recognition/2022.md) · [2024](papers/action-recognition/2024.md) |
+| [动作与行为识别](papers/action-recognition/) | [2015](papers/action-recognition/2015.md) · [2019](papers/action-recognition/2019.md) · [2020](papers/action-recognition/2020.md) · [2021](papers/action-recognition/2021.md) · [2022](papers/action-recognition/2022.md) · [2024](papers/action-recognition/2024.md) · [2025](papers/action-recognition/2025.md) |
 | [视觉-语言与多模态](papers/vision-language/) | [2021](papers/vision-language/2021.md) · [2023](papers/vision-language/2023.md) |
 | [目标检测](papers/object-detection/) | [2017](papers/object-detection/2017.md) · [2020](papers/object-detection/2020.md) · [2021](papers/object-detection/2021.md) · [2023](papers/object-detection/2023.md) · [2024](papers/object-detection/2024.md) |
 | [图像分割](papers/segmentation/) | [2015](papers/segmentation/2015.md) · [2021](papers/segmentation/2021.md) · [2022](papers/segmentation/2022.md) · [2023](papers/segmentation/2023.md) · [2024](papers/segmentation/2024.md) |

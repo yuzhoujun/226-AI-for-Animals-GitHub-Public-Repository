@@ -7,10 +7,11 @@
 ## 本任务收录
 
 <!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-共 9 篇。
+共 10 篇。
 
 | 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
 | --- | --- | --- | --- | --- |
+| [2025](2025.md) | [Feature Hallucination for Self-supervised Action Recognition](https://arxiv.org/abs/2506.20342) | IJCV 2025 | — | 在只有 RGB 输入时预测动作概念及缺失的检测、显著性、光流、骨架或音频等辅助线索，并利用不确定性提升动作识别鲁棒性。 |
 | [2024](2024.md) | [VideoMamba: State Space Model for Efficient Video Understanding](https://arxiv.org/abs/2403.06977) | ECCV 2024 | [代码](https://github.com/OpenGVLab/VideoMamba) | 把 Mamba 状态空间模型引入视频，以线性复杂度做长时建模，同时兼顾短期动作敏感性与多模态兼容。 |
 | [2024](2024.md) | [VideoMamba: Spatio-Temporal Selective State Space Model](https://doi.org/10.1007/978-3-031-72698-9_1) | ECCV 2024 | — | 提出时空前向/后向 SSM 的纯 Mamba 视频识别模型，以线性复杂度捕获视频的长程依赖。 |
 | [2022](2022.md) | [UniFormer: Unified Transformer for Efficient Spatiotemporal Representation Learning](https://arxiv.org/abs/2201.04676) | ICLR 2022 | [代码](https://github.com/Sense-X/UniFormer) | 在统一 Transformer 中融合 3D 卷积与时空自注意力，浅层做局部、深层做全局，兼顾效率与精度。 |
