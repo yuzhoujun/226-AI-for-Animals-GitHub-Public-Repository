@@ -1,0 +1,62 @@
+name: 合并后关闭 Issue
+
+# 机器人开的 PR 被合并后，把对应的 Issue 关上。
+#
+# 为什么不靠 PR 正文里那个 `Closes #N`：实测不管用。2026-09-30 那批 6 个 PR
+# 合并后 Issue 一个都没关，其中 5 个的关键字就在正文第一行，格式、目标分支、
+# 同仓库分支全都没问题——唯一的特殊之处是 PR 由 github-actions[bot] 开出来。
+# 外部资料（见审核指南）指认的就是这一条：机器人开的 PR，关闭关键字不被处理。
+#
+# 与其继续猜 GitHub 的脾气，不如自己关：机器人开的分支名就是 `issue-<编号>`，
+# 编号是现成的，不用去解析正文。
+#
+# 触发方式：合并是人在网页上点的，这个 closed 事件由人触发，不会被扣成
+# 「等待批准」；也不用 pull_request_target——同仓库分支，pull_request 自带写权限。
+# 工作流文件取的是默认分支上的版本，而它本来就在 main 上。
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  issues: write
+
+jobs:
+  close-issue:
+    # 只管机器人开的分支（issue-<编号>）。人工开的 PR 不插手：
+    # 那种 PR 上的关键字 GitHub 是认的，抢着关反而多余。
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'issue-')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const ref = context.payload.pull_request.head.ref;
+            const num = Number(ref.replace(/^issue-/, ''));
+
+            if (!Number.isInteger(num) || num <= 0) {
+              core.warning(`分支名 ${ref} 里没解析出 Issue 编号，跳过`);
+              return;
+            }
+
+            const { owner, repo } = context.repo;
+
+            // 先看一眼状态：投稿人可能自己已经关了，或者被当成重复关掉了。
+            // 重复关闭会报错，也会把 state_reason 覆盖掉，所以先查再关。
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: num,
+            });
+            if (issue.state === 'closed') {
+              core.info(`Issue #${num} 已经是关着的，不动它（state_reason=${issue.state_reason}）`);
+              return;
+            }
+
+            await github.rest.issues.update({
+              owner, repo, issue_number: num,
+              state: 'closed',
+              // 和关键字自动关的效果对齐（显示成「已完成」而不是「已关闭」）
+              state_reason: 'completed',
+            });
+            core.notice(`Issue #${num} 已随 PR #${context.payload.pull_request.number} 合并关闭。`);
