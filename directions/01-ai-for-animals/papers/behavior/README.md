@@ -39,12 +39,13 @@
 ## 本任务收录
 
 <!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-共 7 篇。
+共 8 篇。
 
 | 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
 | --- | --- | --- | --- | --- |
 | [2026](2026.md) | [PriVi: Towards A General-Purpose Video Model For Primate Behavior In The Wild](https://arxiv.org/abs/2511.09675) | CVPR 2026 | — | 面向野外灵长类行为训练通用视频模型，目标是跨物种、跨场景复用同一套行为理解骨干。 |
 | [2026](2026.md) | [Toward Optimal Sampling Rate Selection and Unbiased Classification for Precise Activity Recognition of Farm Quadruped Animals](https://doi.org/10.1016/j.compag.2026.112103) | COMPAG 2026 | — | 提出 IBA-Net 等方法按行为自适应融合不同采样率特征，并通过无偏/校准分类减轻农场四足动物活动识别中的类别不平衡。 |
+| [2026](2026.md) | [Forecasting Motion in the Wild](https://arxiv.org/abs/2604.01015) | ECCV 2026 | [代码](https://motion-forecasting.github.io/) | 从野外动物视频中的稠密点轨迹预测未来运动，结合扩散 Transformer 处理遮挡和不确定的动物运动演化。 |
 | [2025](2025.md) | [Domain-Adaptive Pretraining Improves Primate Behavior Recognition](https://arxiv.org/abs/2509.12193) | CVPR 2025 Workshop (CV4Animals) | — | 用领域自适应预训练缩小通用视频模型与野外灵长类视频之间的域差距，在小样本行为识别上取得提升。 |
 | [2025](2025.md) | [AnimalMotionCLIP: Embedding motion in CLIP for Animal Behavior Analysis](https://arxiv.org/abs/2505.00569) | CV4Animals Workshop 2025 | — | 在 CLIP 的表征里显式注入运动信息，弥补图像-文本预训练模型对时序行为不敏感的缺陷。 |
 | [2025](2025.md) | [Fine-Tuning Video-Text Contrastive Model for Primate Behavior Retrieval from Unlabeled Raw Videos](https://arxiv.org/abs/2505.05681) | arXiv 2025 | — | 用视频-文本对比模型的微调做行为检索，把「找某类行为的片段」变成文本查询问题，绕开逐帧标注。 |
