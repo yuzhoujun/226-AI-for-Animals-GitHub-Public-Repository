@@ -7,10 +7,11 @@
 ## 本任务收录
 
 <!-- AUTO:INDEX:BEGIN 由 scripts/gen-index.mjs 生成，请勿手改 -->
-共 11 篇。
+共 12 篇。
 
 | 年份 | 标题 | 发表 | 代码 | 一句话贡献 |
 | --- | --- | --- | --- | --- |
+| [2026](2026.md) | [InternVideo-Next: Towards General Video Foundation Models without Video-Text Supervision](https://arxiv.org/abs/2512.01342) | CVPR 2026 | [代码](https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo-Next) | 提出无需视频-文本监督的InternVideo-Next，采用EPD框架两阶段预训练，在多项基准上达到SOTA并首次超越视频-文本预训练模型。 |
 | [2025](2025.md) | [Feature Hallucination for Self-supervised Action Recognition](https://arxiv.org/abs/2506.20342) | IJCV 2025 | — | 在只有 RGB 输入时预测动作概念及缺失的检测、显著性、光流、骨架或音频等辅助线索，并利用不确定性提升动作识别鲁棒性。 |
 | [2024](2024.md) | [VideoMamba: State Space Model for Efficient Video Understanding](https://arxiv.org/abs/2403.06977) | ECCV 2024 | [代码](https://github.com/OpenGVLab/VideoMamba) | 把 Mamba 状态空间模型引入视频，以线性复杂度做长时建模，同时兼顾短期动作敏感性与多模态兼容。 |
 | [2024](2024.md) | [VideoMamba: Spatio-Temporal Selective State Space Model](https://doi.org/10.1007/978-3-031-72698-9_1) | ECCV 2024 | — | 提出时空前向/后向 SSM 的纯 Mamba 视频识别模型，以线性复杂度捕获视频的长程依赖。 |
